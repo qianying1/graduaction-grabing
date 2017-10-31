@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
 import cn.grad.grabing.common.BaseUtil;
 import cn.grad.grabing.common.Validation;
@@ -21,6 +22,7 @@ import cn.grad.grabing.entityutil.acfunc.ScienceAndTechno;
 import cn.grad.grabing.entityutil.acfunc.SecondlyYuan;
 import cn.grad.grabing.entityutil.acfunc.Sport;
 
+@Component
 public class IndexAnalizer extends BaseUtil {
 
 	/**

@@ -33,4 +33,10 @@ public class Validation {
 		return false;
 	}
 
+	public static boolean isObjNull(Object obj) {
+		if (obj == null)
+			return true;
+		return false;
+	}
+
 }
