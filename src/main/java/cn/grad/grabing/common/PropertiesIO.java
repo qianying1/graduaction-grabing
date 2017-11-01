@@ -1,8 +1,5 @@
 package cn.grad.grabing.common;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -12,21 +9,9 @@ import java.util.Properties;
 
 public class PropertiesIO extends BaseUtil {
 
-	private Properties initConnector() {
+	private Properties initConnector(String propertiesUri) {
 		Properties properties = new Properties();
-		FileInputStream fIn = null;
-		InputStream in = null;
-		try {
-			if (fIn != null)
-				fIn = new FileInputStream("classpath:websites.properties");
-		} catch (FileNotFoundException e) {
-			log.error("fail to load properties file", e);
-			try {
-				fIn.close();
-			} catch (IOException e1) {
-			}
-		}
-		in = new BufferedInputStream(fIn);
+		InputStream in = this.getClass().getResourceAsStream(propertiesUri);
 		try {
 			properties.load(in);
 		} catch (IOException e) {
@@ -34,23 +19,22 @@ public class PropertiesIO extends BaseUtil {
 		} finally {
 			try {
 				in.close();
-				fIn.close();
 			} catch (IOException e) {
 			}
 		}
 		return properties;
 	}
 
-	public String getPropertiesValue(String key) {
-		Properties properties = initConnector();
+	public String getPropertiesValue(String key, String propertiesUri) {
+		Properties properties = initConnector(propertiesUri);
 		if (Validation.isObjNull(properties))
 			return null;
 		return properties.getProperty(key);
 	}
 
-	public List<String> getPropertiesValues() {
+	public List<String> getPropertiesValues(String propertiesUri) {
 		List<String> keys = new ArrayList<>();
-		Properties properties = initConnector();
+		Properties properties = initConnector(propertiesUri);
 		Iterator<String> itor = properties.stringPropertyNames().iterator();
 		while (itor.hasNext()) {
 			keys.add(properties.getProperty(itor.next()));
@@ -58,9 +42,9 @@ public class PropertiesIO extends BaseUtil {
 		return keys;
 	}
 
-	public String[] getPropertiesKeys() {
+	public String[] getPropertiesKeys(String propertiesUri) {
 		String[] keys = null;
-		Properties properties = initConnector();
+		Properties properties = initConnector(propertiesUri);
 		if (!Validation.isObjNull(properties))
 			properties.stringPropertyNames().toArray(keys);
 		return keys;

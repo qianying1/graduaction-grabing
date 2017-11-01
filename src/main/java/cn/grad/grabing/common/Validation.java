@@ -5,38 +5,24 @@ import org.jsoup.select.Elements;
 
 public class Validation {
 
-	public static boolean isNull(Element header) {
-		if (header == null || header.getElementsByTag("nav") == null || header.getElementsByTag("nav").size() <= 0) {
-			return true;
-		}
-		return false;
+	public static boolean isNull(Element el) {
+		return el != null ? false : true;
 	}
 
-	public static boolean isEmpty(Elements elementsByTag) {
-		if (elementsByTag.size() <= 0) {
-			return true;
-		}
-		return false;
+	public static boolean isEmpty(Elements elements) {
+		return elements.size() <= 0 ? true : false;
 	}
 
 	public static boolean isStringEmpty(String str) {
-		if (str.trim().equals("")) {
-			return true;
-		}
-		return false;
+		return str.trim().equals("") ? true : false;
 	}
 
 	public static boolean isStringNull(String str) {
-		if (str == null) {
-			return true;
-		}
-		return false;
+		return str == null ? true : false;
 	}
 
 	public static boolean isObjNull(Object obj) {
-		if (obj == null)
-			return true;
-		return false;
+		return obj == null ? true : false;
 	}
 
 }

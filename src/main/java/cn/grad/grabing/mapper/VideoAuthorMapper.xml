@@ -5,7 +5,7 @@
 		useGeneratedKeys="true" keyProperty="id">
 		insert into
 		tb_video_author(signature,video_count,attention_count,audience_count,author_page_url,author_pic,author_name)
-		values(#{signature,jdbcType=TEXT},#{videoCount,jdbcType=INT},#{attentionCount,jdbcType=INT},#{audienceCount,jdbcType=INT},#{authorPageUrl,jdbcType=TEXT},#{authorPic,jdbcType=VARCHAR},#{authorName,jdbcType=VARCHAR})
+		values(#{signature,jdbcType=VARCHAR},#{videoCount,jdbcType=BIGINT},#{attentionCount,jdbcType=BIGINT},#{audienceCount,jdbcType=BIGINT},#{authorPageUrl,jdbcType=VARCHAR},#{authorPic,jdbcType=VARCHAR},#{authorName,jdbcType=VARCHAR})
 	</insert>
 
 	<select id="selectVideoAuthors" parameterType="java.lang.String"

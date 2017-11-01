@@ -3,14 +3,13 @@ package cn.grad.grabing.support.acfunc;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.aspectj.weaver.AjAttribute.PrivilegedAttribute;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
-import cn.grad.grabing.common.BaseUtil;
 import cn.grad.grabing.common.Validation;
 import cn.grad.grabing.entityutil.acfunc.BananaCrunchies;
-import cn.grad.grabing.entityutil.acfunc.Carousel;
 import cn.grad.grabing.entityutil.acfunc.Dancerkanojo;
 import cn.grad.grabing.entityutil.acfunc.DramaSeries;
 import cn.grad.grabing.entityutil.acfunc.Entertainment;
@@ -21,9 +20,10 @@ import cn.grad.grabing.entityutil.acfunc.Music;
 import cn.grad.grabing.entityutil.acfunc.ScienceAndTechno;
 import cn.grad.grabing.entityutil.acfunc.SecondlyYuan;
 import cn.grad.grabing.entityutil.acfunc.Sport;
+import cn.grad.grabing.entityutil.acfunc.VideoSection;
 
 @Component
-public class IndexAnalizer extends BaseUtil {
+public class IndexAnalizer extends CommonAnalizer {
 
 	/**
 	 * 分析页面头部获取链接列表
@@ -58,9 +58,23 @@ public class IndexAnalizer extends BaseUtil {
 	 * @param section
 	 * @return
 	 */
-	public List<Carousel> analizeCarouselSection(Element section) {
+	public List<VideoSection> analizeCarouselSection(Element section) {
+		List<VideoSection> result = new ArrayList<>();
+		result.addAll(analizeCarouInCarouselSection(section));
+		result.addAll(analizeOthersInCarouselSection(section));
+		return result;
+	}
 
-		return null;
+	// 分析除轮播之外的其他各小视频
+	private List<VideoSection> analizeOthersInCarouselSection(Element el) {
+		Elements carousels = el.getElementsByClass("slider-right-x6");
+		return analizeVideoLi(carousels);
+	}
+
+	// 分析轮播模块
+	private List<VideoSection> analizeCarouInCarouselSection(Element el) {
+		Elements carousels = el.getElementsByClass("slider-wrap");
+		return analizeVideoLi(carousels);
 	}
 
 	/**
@@ -70,6 +84,18 @@ public class IndexAnalizer extends BaseUtil {
 	 * @return
 	 */
 	public List<MonkeyRecommend> analizeMonkeySection(Element section) {
+
+		return null;
+	}
+
+	// 分析猴子推荐的左边模块
+	private List<VideoSection> analizeLeftColumnOfMonkeySection(Element el) {
+
+		return null;
+	}
+
+	// 分析猴子推荐的右边模块
+	private List<VideoSection> analizeRightColumnOfMonkeySection(Element el) {
 
 		return null;
 	}
