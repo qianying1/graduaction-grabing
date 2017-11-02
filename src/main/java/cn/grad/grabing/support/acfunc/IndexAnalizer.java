@@ -3,7 +3,6 @@ package cn.grad.grabing.support.acfunc;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.aspectj.weaver.AjAttribute.PrivilegedAttribute;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
@@ -15,7 +14,6 @@ import cn.grad.grabing.entityutil.acfunc.DramaSeries;
 import cn.grad.grabing.entityutil.acfunc.Entertainment;
 import cn.grad.grabing.entityutil.acfunc.FishesPool;
 import cn.grad.grabing.entityutil.acfunc.Game;
-import cn.grad.grabing.entityutil.acfunc.MonkeyRecommend;
 import cn.grad.grabing.entityutil.acfunc.Music;
 import cn.grad.grabing.entityutil.acfunc.ScienceAndTechno;
 import cn.grad.grabing.entityutil.acfunc.SecondlyYuan;
@@ -83,21 +81,39 @@ public class IndexAnalizer extends CommonAnalizer {
 	 * @param section
 	 * @return
 	 */
-	public List<MonkeyRecommend> analizeMonkeySection(Element section) {
-
-		return null;
-	}
-
-	// 分析猴子推荐的左边模块
-	private List<VideoSection> analizeLeftColumnOfMonkeySection(Element el) {
-
-		return null;
-	}
-
-	// 分析猴子推荐的右边模块
-	private List<VideoSection> analizeRightColumnOfMonkeySection(Element el) {
-
-		return null;
+	public List<VideoSection> analizeMonkeySection(Element section) {
+		List<VideoSection> videos = new ArrayList<>();
+		if (Validation.isNull(section)) {
+			log.debug("the monkeyRecommend don`t have any contents");
+			return null;
+		}
+		Elements div = section.getElementsByClass("area-main");
+		if (Validation.isEmpty(div)) {
+			log.debug("the monkeyRecommend don`t have any contents");
+			return null;
+		}
+		Element contents = div.get(0);
+		if (Validation.isNull(contents)) {
+			log.debug("the monkeyRecommend don`t have any contents");
+			return null;
+		}
+		Elements links = contents.getElementsByTag("a");
+		if (Validation.isEmpty(links)) {
+			log.debug("the monkeyRecommend don`t have any contents");
+			return null;
+		}
+		for (Element link : links) {
+			if (Validation.isObjNull(link) || Validation.isNotContainsStr(link, "acfun"))
+				continue;
+			VideoSection video = new VideoSection();
+			Element img = !Validation.isEmpty(link.getElementsByTag("img")) ? link.getElementsByTag("img").get(0)
+					: null;
+			if (!Validation.isNull(img))
+				video.setImage(img.attr("abs:src"));
+			video.setLink(link.attr("abs:href"));
+			videos.add(video);
+		}
+		return videos;
 	}
 
 	/**

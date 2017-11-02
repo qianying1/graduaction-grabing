@@ -25,4 +25,12 @@ public class Validation {
 		return obj == null ? true : false;
 	}
 
+	public static boolean isNotContainsStr(Element el, String str) {
+		if (isNull(el))
+			return true;
+		if (isStringNull(str) || isStringEmpty(str))
+			return true;
+		return !el.attr("abs:href").contains(str);
+	}
+
 }
