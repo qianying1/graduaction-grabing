@@ -1,7 +1,11 @@
 package cn.grad.grabing.common;
 
+import java.util.List;
+
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import cn.grad.grabing.entityutil.acfunc.VideoSection;
 
 public class Validation {
 
@@ -31,6 +35,14 @@ public class Validation {
 		if (isStringNull(str) || isStringEmpty(str))
 			return true;
 		return !el.attr("abs:href").contains(str);
+	}
+
+	public static boolean isEmpty(Element[] els) {
+		return els.length <= 0 ? true : false;
+	}
+
+	public static boolean isListEmpty(List<VideoSection> datas) {
+		return datas.size() <= 0 ? true : false;
 	}
 
 }

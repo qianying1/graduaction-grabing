@@ -102,17 +102,9 @@ public class IndexAnalizer extends CommonAnalizer {
 			log.debug("the monkeyRecommend don`t have any contents");
 			return null;
 		}
-		for (Element link : links) {
-			if (Validation.isObjNull(link) || Validation.isNotContainsStr(link, "acfun"))
-				continue;
-			VideoSection video = new VideoSection();
-			Element img = !Validation.isEmpty(link.getElementsByTag("img")) ? link.getElementsByTag("img").get(0)
-					: null;
-			if (!Validation.isNull(img))
-				video.setImage(img.attr("abs:src"));
-			video.setLink(link.attr("abs:href"));
-			videos.add(video);
-		}
+		List<VideoSection> results = analizeASection(links);
+		if (!Validation.isObjNull(results) && !Validation.isListEmpty(results))
+			videos.addAll(results);
 		return videos;
 	}
 

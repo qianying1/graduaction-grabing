@@ -1,5 +1,6 @@
 package cn.grad.grabing.suport.acfun;
 
+import java.awt.image.RescaleOp;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
@@ -45,10 +46,24 @@ public class IndexCase extends BaseUtil {
 		setUrl(io.getPropertiesValue(grabType, propertiesUri));
 	}
 
-	private Document getDocumentByUrl(String url) throws IOException {
+	private Document getDocumentByUrl(String url) {
 		if (Validation.isStringNull(url) || Validation.isStringEmpty(url))
 			return null;
-		return Jsoup.connect(getUrl()).timeout(20 * 60 * 60).userAgent(userAgent).get();
+		Document doc = null;
+		try {
+			doc = Jsoup.connect(getUrl()).timeout(1000 * 60 * 6).userAgent(userAgent).get();
+		} catch (IOException e) {
+			log.error("Maybe network is too bad to connect the target or the connection is broken by some factors", e);
+		}
+		return doc;
+	}
+
+	private void print(List<VideoSection> datas) {
+		if (datas == null || datas.size() <= 0)
+			return;
+		for (VideoSection data : datas) {
+			System.out.println("video data: " + data);
+		}
 	}
 
 	@Before
@@ -58,37 +73,35 @@ public class IndexCase extends BaseUtil {
 
 	@Test
 	public void testHeaderAnalizer() {
-		Document doc = null;
-		try {
-			doc = getDocumentByUrl(getUrl());
-			log.debug("running exam......");
-		} catch (MalformedURLException e) {
-			log.error("the url is valide: " + url, e);
-		} catch (IOException e) {
-			log.error("connect to " + url + " error", e);
-		}
-		List<String> links = indexAnalizer.analizeHeaderForUrls(doc);
-		for (String url : links) {
-			System.out.println("links: " + url);
-		}
+		Document doc = getDocumentByUrl(getUrl());
+		List<String> links = null;
+		if (doc != null)
+			links = indexAnalizer.analizeHeaderForUrls(doc);
+		if (links != null && links.size() > 0)
+			for (String url : links) {
+				System.out.println("links: " + url);
+			}
 	}
 
 	@Test
 	public void testCarouselSectionAnalizer() {
-		Document doc = null;
-		try {
-			doc = getDocumentByUrl(getUrl());
-			log.debug("running exam......");
-		} catch (MalformedURLException e) {
-			log.error("the url is valide: " + url, e);
-		} catch (IOException e) {
-			log.error("connect to " + url + " error", e);
-		}
-		List<VideoSection> carousels = indexAnalizer
-				.analizeCarouselSection(doc.getElementById("main").getElementsByTag("section").get(0));
-		for (VideoSection carousel : carousels) {
-			System.out.println("carousel: " + carousel);
+		Document doc = getDocumentByUrl(getUrl());
+		if (doc != null) {
+			List<VideoSection> carousels = indexAnalizer
+					.analizeCarouselSection(doc.getElementById("main").getElementsByTag("section").get(0));
+			print(carousels);
 		}
 	}
 
+	@Test
+	public void testMonkeyRecommendSectionAnalizer() {
+		Document doc = getDocumentByUrl(getUrl());
+		// System.out.println("document: " +
+		// doc.getElementById("main").getElementsByTag("section").get(1));
+		if (doc != null) {
+			List<VideoSection> recommends = indexAnalizer
+					.analizeMonkeySection(doc.getElementById("main").getElementsByTag("section").get(1));
+			print(recommends);
+		}
+	}
 }

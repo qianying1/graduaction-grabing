@@ -7,4 +7,5 @@ public class BaseUtil {
 
 	public final Log log=LogFactory.getLog(this.getClass());
 	
+	
 }
