@@ -1,4 +1,4 @@
-package cn.grad.grabing.common;
+package cn.grad.grabing.util;
 
 import java.util.List;
 
@@ -47,6 +47,11 @@ public class Validation {
 
 	public static boolean isStrIgnoreCaseEquals(String str1, String str2) {
 		return str1.trim().equalsIgnoreCase(str2.trim());
+	}
+
+	public static String enValueConfigPath(String webSitesPath) {
+		return webSitesPath.contains("classpath:") ? webSitesPath.trim().replace("classpath:", "/")
+				: webSitesPath.trim();
 	}
 
 }

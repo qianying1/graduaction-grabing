@@ -7,7 +7,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
-import cn.grad.grabing.common.Validation;
 import cn.grad.grabing.entityutil.acfunc.BananaCrunchies;
 import cn.grad.grabing.entityutil.acfunc.Dancerkanojo;
 import cn.grad.grabing.entityutil.acfunc.DramaSeries;
@@ -19,6 +18,7 @@ import cn.grad.grabing.entityutil.acfunc.ScienceAndTechno;
 import cn.grad.grabing.entityutil.acfunc.SecondlyYuan;
 import cn.grad.grabing.entityutil.acfunc.Sport;
 import cn.grad.grabing.entityutil.acfunc.VideoSection;
+import cn.grad.grabing.util.Validation;
 
 @Component
 public class IndexAnalizer extends CommonAnalizer {

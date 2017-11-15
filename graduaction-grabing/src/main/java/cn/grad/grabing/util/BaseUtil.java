@@ -1,4 +1,4 @@
-package cn.grad.grabing.common;
+package cn.grad.grabing.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

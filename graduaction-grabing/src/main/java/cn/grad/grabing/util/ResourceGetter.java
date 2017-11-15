@@ -1,4 +1,4 @@
-package cn.grad.grabing.common;
+package cn.grad.grabing.util;
 
 import java.io.IOException;
 import java.util.Map;
@@ -12,21 +12,6 @@ import org.jsoup.nodes.Element;
 
 @Resource
 public class ResourceGetter extends BaseUtil {
-
-	public static final String CAROUSEL = "carousel";
-	public static final String MONKEYRECOMMEND = "monkeyrecommend";
-	public static final String BANANAANDARTICLE = "bananaandarticle";
-	public static final String ENTERTAINMENT = "entertainment";
-	public static final String DRAMASERIES = "dramaseries";
-	public static final String GAME = "game";
-	public static final String ANIMATION = "animation";
-	public static final String MUSIC = "music";
-	public static final String DANCERKANOJO = "dancerkanojo";
-	public static final String FISHESPOOL = "fishespool";
-	public static final String SCIENCEANDTECHNO = "scienceandtechno";
-	public static final String SPORT = "sport";
-	public static final String TEMPLATE = "template";
-	public static final String HEADER = "header";
 
 	public Document getDocumentByUrl(String url, Map<String, Object> params) {
 		if (Validation.isStringNull(url) || Validation.isStringEmpty(url))
@@ -67,40 +52,40 @@ public class ResourceGetter extends BaseUtil {
 			log.error("can`t getting a page from uri: " + url);
 			return null;
 		}
-		if (Validation.isStrIgnoreCaseEquals(ResourceGetter.HEADER, sectionName))
+		if (Validation.isStrIgnoreCaseEquals(StrPropertiesMapper.HEADER, sectionName))
 			return doc;
 		switch (sectionName) {
-		case ResourceGetter.CAROUSEL:
+		case StrPropertiesMapper.CAROUSEL:
 			sectionNum = 0;
 			break;
-		case ResourceGetter.MONKEYRECOMMEND:
+		case StrPropertiesMapper.MONKEYRECOMMEND:
 			sectionNum = 1;
 			break;
-		case ResourceGetter.BANANAANDARTICLE:
+		case StrPropertiesMapper.BANANAANDARTICLE:
 			sectionNum = 2;
 			break;
-		case ResourceGetter.ENTERTAINMENT:
+		case StrPropertiesMapper.ENTERTAINMENT:
 			sectionNum = 3;
 			break;
-		case ResourceGetter.DRAMASERIES:
+		case StrPropertiesMapper.DRAMASERIES:
 			sectionNum = 4;
 			break;
-		case ResourceGetter.GAME:
+		case StrPropertiesMapper.GAME:
 			sectionNum = 5;
 			break;
-		case ResourceGetter.ANIMATION:
+		case StrPropertiesMapper.ANIMATION:
 			sectionNum = 6;
 			break;
-		case ResourceGetter.DANCERKANOJO:
+		case StrPropertiesMapper.DANCERKANOJO:
 			sectionNum = 7;
 			break;
-		case ResourceGetter.FISHESPOOL:
+		case StrPropertiesMapper.FISHESPOOL:
 			sectionNum = 8;
 			break;
-		case ResourceGetter.SCIENCEANDTECHNO:
+		case StrPropertiesMapper.SCIENCEANDTECHNO:
 			sectionNum = 9;
 			break;
-		case ResourceGetter.SPORT:
+		case StrPropertiesMapper.SPORT:
 			sectionNum = 10;
 			break;
 		default:

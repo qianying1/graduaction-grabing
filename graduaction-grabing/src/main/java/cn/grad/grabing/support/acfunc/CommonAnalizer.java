@@ -6,9 +6,9 @@ import java.util.List;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import cn.grad.grabing.common.BaseUtil;
-import cn.grad.grabing.common.Validation;
 import cn.grad.grabing.entityutil.acfunc.VideoSection;
+import cn.grad.grabing.util.BaseUtil;
+import cn.grad.grabing.util.Validation;
 
 public class CommonAnalizer extends BaseUtil {
 

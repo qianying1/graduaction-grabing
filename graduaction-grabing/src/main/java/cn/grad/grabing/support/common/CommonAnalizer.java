@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import cn.grad.grabing.common.Validation;
+import cn.grad.grabing.util.Validation;
 
 public class CommonAnalizer {
 

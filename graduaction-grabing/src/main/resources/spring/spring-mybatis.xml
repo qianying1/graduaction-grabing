@@ -38,15 +38,7 @@
 	<!-- 装载数据源 begin -->
 	<bean id="propertyConfigurator"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>classpath:properties/grabing.properties</value>
-				<value>classpath:properties/log4j.properties</value>
-				<value>classpath:properties/websites.properties</value>
-				<value>classpath:properties/jdbc.properties</value>
-			</list>
-		</property>
-		<!-- <property name="location" value="classpath:properties/jdbc1.properties"></property> -->
+		<property name="location" value="classpath:properties/jdbc.properties" />
 	</bean>
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -60,7 +52,7 @@
 		<!-- 自动扫描mapping.xml文件 -->
 		<property name="mapperLocations" value="classpath:cn/grad/grabing/mapper/*.xml"></property>
 		<property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml" />
-		<property name="typeAliasesPackage" value="cn.grad.grabing.domain" />
+		<property name="typeAliasesPackage" value="classpath:cn.grad.grabing.domain" />
 	</bean>
 	<!-- 装载数据源 end -->
 

@@ -1,10 +1,12 @@
-package cn.grad.grabing.common;
+package cn.grad.grabing.util;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.annotation.Resource;
@@ -12,7 +14,7 @@ import javax.annotation.Resource;
 @Resource
 public class PropertiesIO extends BaseUtil {
 
-	private Properties initConnector(String propertiesUri) {
+	public Properties initConnector(String propertiesUri) {
 		Properties properties = new Properties();
 		InputStream in = this.getClass().getResourceAsStream(propertiesUri);
 		try {
@@ -50,6 +52,15 @@ public class PropertiesIO extends BaseUtil {
 		Properties properties = initConnector(propertiesUri);
 		if (!Validation.isObjNull(properties))
 			properties.stringPropertyNames().toArray(keys);
+		return keys;
+	}
+
+	public List<String> getPropertiesValues(Properties headersProperties) {
+		List<String> keys = new ArrayList<>();
+		Iterator<String> itor = headersProperties.stringPropertyNames().iterator();
+		while (itor.hasNext()) {
+			keys.add(headersProperties.getProperty(itor.next()));
+		}
 		return keys;
 	}
 
