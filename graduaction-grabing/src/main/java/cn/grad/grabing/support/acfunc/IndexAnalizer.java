@@ -7,16 +7,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
-import cn.grad.grabing.entityutil.acfunc.BananaCrunchies;
-import cn.grad.grabing.entityutil.acfunc.Dancerkanojo;
-import cn.grad.grabing.entityutil.acfunc.DramaSeries;
-import cn.grad.grabing.entityutil.acfunc.Entertainment;
-import cn.grad.grabing.entityutil.acfunc.FishesPool;
-import cn.grad.grabing.entityutil.acfunc.Game;
-import cn.grad.grabing.entityutil.acfunc.Music;
-import cn.grad.grabing.entityutil.acfunc.ScienceAndTechno;
-import cn.grad.grabing.entityutil.acfunc.SecondlyYuan;
-import cn.grad.grabing.entityutil.acfunc.Sport;
 import cn.grad.grabing.entityutil.acfunc.VideoSection;
 import cn.grad.grabing.util.Validation;
 
@@ -282,6 +272,10 @@ public class IndexAnalizer extends CommonAnalizer {
 			return null;
 		}
 		return results;
+	}
+
+	public void testing() {
+		System.out.println("indexAnalizer testing......");
 	}
 
 }
