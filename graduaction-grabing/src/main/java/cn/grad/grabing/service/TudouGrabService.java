@@ -4,4 +4,6 @@ public interface TudouGrabService {
 
 	void beginTudouGrabing();
 
+	void initBeforeGrabing(String targetValue);
+
 }

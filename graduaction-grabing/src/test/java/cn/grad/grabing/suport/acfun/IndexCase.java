@@ -73,7 +73,7 @@ public class IndexCase extends ResourceGetter {
 	 */
 	@Test
 	public void testHeaderAnalizer() {
-		Document doc = getDocumentByUrl(getUrl(), null);
+		Document doc = getDocumentByUrl(getUrl());
 		List<String> links = null;
 		if (doc != null)
 			links = indexAnalizer.analizeHeaderForUrls(doc);
@@ -231,5 +231,14 @@ public class IndexCase extends ResourceGetter {
 		List<VideoSection> results = indexAnalizer
 				.ananlizePageForLinks(getDocumentByUrl(getUrl(), getHeaderParams()).getElementById("main"));
 		print(results);
+	}
+
+	/**
+	 * javaScript代码的抓取
+	 */
+	@Test
+	public void testScriptGrabing() {
+		Document document = getDocumentByUrl(getUrl(), getHeaderParams());
+		System.out.println(document.getElementsByTag("script"));
 	}
 }

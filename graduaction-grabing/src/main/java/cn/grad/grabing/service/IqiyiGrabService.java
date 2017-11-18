@@ -4,4 +4,6 @@ public interface IqiyiGrabService {
 
 	void beginIqiyiGrabing();
 
+	void initBeforeGrabing(String targetValue);
+
 }

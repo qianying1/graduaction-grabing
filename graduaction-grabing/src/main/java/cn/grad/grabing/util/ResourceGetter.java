@@ -1,7 +1,9 @@
 package cn.grad.grabing.util;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.annotation.Resource;
 
@@ -97,5 +99,14 @@ public class ResourceGetter extends BaseUtil {
 			return null;
 		}
 		return result;
+	}
+
+	public Document getDocumentByUrl(String configuationPath, Properties configPro) {
+
+		return null;
+	}
+
+	public Document getDocumentByUrl(String configuationPath) {
+		return getDocumentByUrl(configuationPath, new HashMap<String, Object>());
 	}
 }

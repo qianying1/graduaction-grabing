@@ -3,10 +3,8 @@ package cn.grad.grabing.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.annotation.Resource;
@@ -20,7 +18,7 @@ public class PropertiesIO extends BaseUtil {
 		try {
 			properties.load(in);
 		} catch (IOException e) {
-			log.error("fail to load properties contents", e);
+			log.error("fail to load properties contents from file: "+propertiesUri, e);
 		} finally {
 			try {
 				in.close();

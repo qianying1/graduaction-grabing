@@ -4,4 +4,6 @@ public interface PptvGrabService {
 
 	void beginPptvGrabing();
 
+	void initBeforeGrabing(String targetValue);
+
 }

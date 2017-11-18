@@ -4,4 +4,6 @@ public interface LeshiGrabService {
 
 	void beginLetvGrabing();
 
+	void initBeforeGrabing(String targetValue);
+
 }

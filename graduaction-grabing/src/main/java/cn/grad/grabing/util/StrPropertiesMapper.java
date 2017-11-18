@@ -1,9 +1,9 @@
 package cn.grad.grabing.util;
 
-import com.mchange.v2.async.StrandedTaskReporting;
-
 public class StrPropertiesMapper {
 
+	public static final String CONFIGURATION_BASE_PATH="/properties/";
+	
 	public static final String WEBSITESPROPERTIESFILE="grabingWebsites";
 	public static final String HTTPCONFIGURATIONSPROPERTIESFILE="grabingConfigurations";
 	

@@ -1,9 +1,9 @@
 package cn.grad.grabing.service;
 
-public interface SohuGrabService {
-
-	void beginSohuGrabing();
+public interface DouyuGrabService {
 
 	void initBeforeGrabing(String targetValue);
+
+	void beginDouyuGrabing();
 
 }

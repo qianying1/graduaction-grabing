@@ -1,6 +1,7 @@
 package cn.grad.grabing.util;
 
 import java.util.List;
+import java.util.Set;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -52,6 +53,10 @@ public class Validation {
 	public static String enValueConfigPath(String webSitesPath) {
 		return webSitesPath.contains("classpath:") ? webSitesPath.trim().replace("classpath:", "/")
 				: webSitesPath.trim();
+	}
+
+	public static boolean isPropertiesEmpty(Set<Object> keySet) {
+		return keySet.isEmpty();
 	}
 
 }

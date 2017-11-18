@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!-- <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -15,7 +15,7 @@
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/task
-   		http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+   		http://www.springframework.org/schema/task/spring-task-4.0.xsd"> -->
 
 	<!-- properties file configuration begin -->
 	<!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
@@ -31,16 +31,13 @@
 	<!-- properties file configuration begin -->
 
 	<!-- 启动注解，注册服务，如验证框架、全局类型转换器 -->
-	<mvc:annotation-driven />
-	<!-- 处理器，处理器映射器，处理器适配器，视图解析器,注解扫描 -->
-	<context:component-scan base-package="cn.grad.grabing">
-		<!-- 制定扫包规则 ,只扫描使用@Controller注解的JAVA类 -->
-		<context:include-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
-	</context:component-scan>
+	<!-- <mvc:annotation-driven /> 处理器，处理器映射器，处理器适配器，视图解析器,注解扫描 <context:component-scan 
+		base-package="cn.grad.grabing"> 制定扫包规则 ,只扫描使用@Controller注解的JAVA类 <context:include-filter 
+		type="annotation" expression="org.springframework.stereotype.Controller" 
+		/> </context:component-scan> -->
 
 	<!-- 对静态资源文件的访问 -->
-	<mvc:resources location="/Images/" mapping="/images/**" />
+	<!-- <mvc:resources location="/Images/" mapping="/images/**" />
 	<mvc:resources location="/WEB-INF/lib/js/" mapping="/js/**" />
 	<mvc:resources location="/WEB-INF/lib/projectjs/"
 		mapping="/projectjs/**" />
@@ -56,7 +53,7 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp"></property>
-	</bean>
+	</bean> -->
 
 	<!-- <mvc:annotation-driven> <mvc:message-converters register-defaults="true"> 
 		<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"> 
@@ -64,4 +61,4 @@
 		</mvc:annotation-driven> <bean id="jacksonObjectMapper" class="cn.grad.grabing.common.LowerCaseWithUnderscoresObjectMapper" 
 		/> -->
 
-</beans>
+<!-- </beans> -->
