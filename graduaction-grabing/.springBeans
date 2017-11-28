@@ -8,6 +8,7 @@
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
 		<config>src/main/resources/spring/spring-mybatis.xml</config>
+		<config>src/main/resources/spring/grad-grabing.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

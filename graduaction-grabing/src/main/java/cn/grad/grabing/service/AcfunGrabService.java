@@ -4,6 +4,6 @@ public interface AcfunGrabService{
 
 	void beginAcfunGrabing();
 	
-	void initBeforeGrabing(String targetUri);
+	void initIndexBeforeGrabing(String targetUri);
 	
 }

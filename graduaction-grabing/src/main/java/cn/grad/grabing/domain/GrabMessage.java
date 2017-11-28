@@ -1,7 +1,9 @@
 package cn.grad.grabing.domain;
 
-public class GrabMessage {
+import java.io.Serializable;
 
+@SuppressWarnings("serial")
+public class GrabMessage implements Serializable {
 	private Integer msgId;
 	private String videoName; // 视频名称
 	private String playCount; // 视频播放次数
@@ -12,6 +14,13 @@ public class GrabMessage {
 	private String videoAddTime; // 视频发布时间
 	private Integer authorId; // 作者
 	private String videoType; // 视频类型
+
+	@Override
+	public String toString() {
+		return "GrabMessage [msgId=" + msgId + ", videoName=" + videoName + ", playCount=" + playCount + ", likeCount="
+				+ likeCount + ", commentCount=" + commentCount + ", barrage=" + barrage + ", bananaCount=" + bananaCount
+				+ ", videoAddTime=" + videoAddTime + ", authorId=" + authorId + ", videoType=" + videoType + "]";
+	}
 
 	public GrabMessage() {
 		super();

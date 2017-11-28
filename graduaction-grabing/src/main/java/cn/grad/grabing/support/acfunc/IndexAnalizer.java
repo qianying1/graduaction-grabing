@@ -56,13 +56,85 @@ public class IndexAnalizer extends CommonAnalizer {
 	// 分析除轮播之外的其他各小视频
 	private List<VideoSection> analizeOthersInCarouselSection(Element el) {
 		Elements carousels = el.getElementsByClass("slider-right-x6");
-		return analizeVideoLi(carousels);
+		return analizeLiElInCarousel(carousels);
 	}
 
 	// 分析轮播模块
 	private List<VideoSection> analizeCarouInCarouselSection(Element el) {
 		Elements carousels = el.getElementsByClass("slider-wrap");
-		return analizeVideoLi(carousels);
+		return analizeLiElOutCarousel(carousels);
+	}
+	
+	/**
+	 * 分析带有视频节点的li
+	 * 
+	 * @param els
+	 * @return
+	 */
+	private List<VideoSection> analizeLiElInCarousel(Elements els) {
+		List<VideoSection> results = new ArrayList<>();
+		if (!Validation.isEmpty(els)) {
+			Element carousel = els.get(0);
+			if (Validation.isNull(carousel)) {
+				log.warn("the carousel is empty of index page");
+				return null;
+			}
+			Elements lis = carousel.getElementsByTag("li");
+			if (Validation.isObjNull(lis) || Validation.isEmpty(lis)) {
+				log.warn("the carousel don`t have conent");
+				return null;
+			}
+			for (Element li : lis) {
+				if (Validation.isNull(li))
+					continue;
+				VideoSection carou = new VideoSection();
+				String link = li.getElementsByTag("a").get(0).attr("abs:href");
+				if (!link.contains("acfun"))
+					continue;
+				carou.setLink(link);
+				carou.setImage(li.getElementsByTag("img").get(0).attr("abs:src"));
+				//carou.setVideoName(li.getElementsByClass("slider-title").get(0).text());
+				results.add(carou);
+			}
+			return results;
+		}
+		return null;
+	}
+	
+	/**
+	 * 分析带有视频节点的li
+	 * 
+	 * @param els
+	 * @return
+	 */
+	private List<VideoSection> analizeLiElOutCarousel(Elements els) {
+		List<VideoSection> results = new ArrayList<>();
+		if (!Validation.isEmpty(els)) {
+			Element carousel = els.get(0);
+			if (Validation.isNull(carousel)) {
+				log.warn("the carousel is empty of index page");
+				return null;
+			}
+			Elements lis = carousel.getElementsByTag("li");
+			if (Validation.isObjNull(lis) || Validation.isEmpty(lis)) {
+				log.warn("the carousel don`t have conent");
+				return null;
+			}
+			for (Element li : lis) {
+				if (Validation.isNull(li))
+					continue;
+				VideoSection carou = new VideoSection();
+				String link = li.getElementsByTag("a").get(0).attr("abs:href");
+				if (!link.contains("acfun"))
+					continue;
+				carou.setLink(link);
+				carou.setImage(li.getElementsByTag("img").get(0).attr("abs:src"));
+				//carou.setVideoName(li.getElementsByClass("slider-title").get(0).text());
+				results.add(carou);
+			}
+			return results;
+		}
+		return null;
 	}
 
 	/**

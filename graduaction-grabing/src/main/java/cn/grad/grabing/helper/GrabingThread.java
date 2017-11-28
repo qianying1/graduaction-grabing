@@ -47,7 +47,7 @@ public class GrabingThread extends BaseUtil implements Runnable {
 				|| Validation.isStringEmpty(getTargetName()) || Validation.isStringEmpty(getTargetValue())) {
 			log.warn("target is empty...");
 		}
-//		while (true) {
+		while (true) {
 			switch (targetName) {
 			case StrPropertiesMapper.ACFUN:
 				beginAcfunGrabing();
@@ -80,7 +80,12 @@ public class GrabingThread extends BaseUtil implements Runnable {
 				log.error("unavailable target name: " + targetName + " and the uri is: " + targetValue);
 				break;
 			}
-//		}
+			try {
+				Thread.sleep(1000*60*60*24);
+			} catch (InterruptedException e) {
+				log.error("the thread is being broken in sleep on grabing for "+targetName);
+			}
+		}
 	}
 
 	private void beginYoukuGrabing() {
@@ -127,7 +132,7 @@ public class GrabingThread extends BaseUtil implements Runnable {
 
 	private void beginAcfunGrabing() {
 		acfunGrabServiceImpl = (AcfunGrabServiceImpl) context.getBean("acfunGrabServiceImpl");
-		acfunGrabServiceImpl.initBeforeGrabing(targetValue);
+		acfunGrabServiceImpl.initIndexBeforeGrabing(targetValue);
 		acfunGrabServiceImpl.beginAcfunGrabing();
 	}
 	

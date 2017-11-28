@@ -1,9 +1,20 @@
 package cn.grad.grabing.domain;
 
-public class GrabingWeb {
+import java.io.Serializable;
 
+@SuppressWarnings("serial")
+public class GrabingWeb implements Serializable {
 	private String webName;
 	private String url;
+
+	@Override
+	public String toString() {
+		return "GrabingWeb [webName=" + webName + ", url=" + url + "]";
+	}
+
+	public GrabingWeb() {
+		super();
+	}
 
 	public GrabingWeb(String webName, String url) {
 		super();

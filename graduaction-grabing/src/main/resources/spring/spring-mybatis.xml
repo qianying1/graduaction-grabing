@@ -2,32 +2,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
-	<!-- Spring aop 切面编程支持 begin -->
-	<!-- 启动@AspectJ支持 -->
-    <aop:aspectj-autoproxy/>
-    <!-- 指定自动搜索Bean组件，自动搜索切面类 -->
-    <context:component-scan base-package="cn.grad.grabing.advice">
-        <context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect" />
-    </context:component-scan>
-    <!-- Spring aop 切面编程支持 end -->
-    
-	<!-- 启动注解驱动 -->
-	<mvc:annotation-driven />
-	<!-- 启动自动扫描包 begin -->
-	<context:component-scan base-package="cn.grad.grabing" />
-	<!-- 启动自动扫描包 end -->
-
-	<!-- 装载数据源 begin -->
-	<bean id="propertyConfigurator"
+	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="classpath:properties/jdbc.properties" />
+		<property name="locations">
+			<list>
+				<value>classpath*:properties/jdbc.properties</value>
+			</list>
+		</property>
 	</bean>
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -60,4 +44,15 @@
 
 	<!-- 定义个通知，指定事务管理器 -->
 
+
+	<context:annotation-config />
+	<context:component-scan base-package="cn.grad.grabing" />
+	<!-- dozer -->
+	<bean id="dozer" class="org.dozer.spring.DozerBeanMapperFactoryBean">
+		<property name="mappingFiles">
+			<list>
+				<value>classpath*:spring/dozer-mapping.xml</value>
+			</list>
+		</property>
+	</bean>
 </beans>

@@ -1,7 +1,9 @@
 package cn.grad.grabing.domain;
 
-public class AnalizedMessage {
+import java.io.Serializable;
 
+@SuppressWarnings("serial")
+public class AnalizedMessage implements Serializable {
 	private Integer msgId;
 	private String videoStyle;
 	private String videoName;
@@ -9,6 +11,13 @@ public class AnalizedMessage {
 	private String averageEval;
 	private String mostLikeUserLocation;
 	private Integer videoCommentTimes;
+
+	@Override
+	public String toString() {
+		return "AnalizedMessage [msgId=" + msgId + ", videoStyle=" + videoStyle + ", videoName=" + videoName
+				+ ", playTimes=" + playTimes + ", averageEval=" + averageEval + ", mostLikeUserLocation="
+				+ mostLikeUserLocation + ", videoCommentTimes=" + videoCommentTimes + "]";
+	}
 
 	public AnalizedMessage() {
 		super();

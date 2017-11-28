@@ -1,6 +1,9 @@
 package cn.grad.grabing.domain;
 
-public class WebSites {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class WebSites implements Serializable{
 
 	private Integer websiteId;
 	private String websiteName;
@@ -8,6 +11,11 @@ public class WebSites {
 
 	public WebSites() {
 		super();
+	}
+
+	@Override
+	public String toString() {
+		return "WebSites [websiteId=" + websiteId + ", websiteName=" + websiteName + ", websiteUrl=" + websiteUrl + "]";
 	}
 
 	public String getWebsiteUrl() {

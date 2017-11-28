@@ -7,13 +7,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.grad.grabing.entityutil.acfunc.VideoSection;
+import cn.grad.grabing.helper.DocumentInitailizer;
 import cn.grad.grabing.util.PropertiesIO;
-import cn.grad.grabing.util.ResourceGetter;
 
 public class ContentsPageAnalizer extends CommonAnalizer {
 
 	@Autowired
-	private ResourceGetter resourceGetter;
+	private DocumentInitailizer resourceGetter;
 	@Autowired
 	private PropertiesIO propertiesIO;
 

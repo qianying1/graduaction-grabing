@@ -42,7 +42,7 @@ public class Validation {
 		return els.length <= 0 ? true : false;
 	}
 
-	public static boolean isListEmpty(List<VideoSection> datas) {
+	public static <T> boolean isListEmpty(List<T> datas) {
 		return datas.size() <= 0 ? true : false;
 	}
 

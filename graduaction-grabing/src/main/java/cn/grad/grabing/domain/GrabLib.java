@@ -1,16 +1,23 @@
 package cn.grad.grabing.domain;
 
-public class GrabLib {
+import java.io.Serializable;
 
+@SuppressWarnings("serial")
+public class GrabLib implements Serializable {
 	private Integer grabId;
-	private Integer websiteId;
+	private String website;
 	private String webSiteAddr;
-	private String grabSign;
+	private String grabedSign;
 	private String addTime;
 
 	public GrabLib() {
 		super();
+	}
 
+	@Override
+	public String toString() {
+		return "GrabLib [grabId=" + grabId + ", website=" + website + ", webSiteAddr=" + webSiteAddr + ", grabedSign="
+				+ grabedSign + ", addTime=" + addTime + "]";
 	}
 
 	public Integer getGrabId() {
@@ -29,12 +36,12 @@ public class GrabLib {
 		this.webSiteAddr = webSiteAddr;
 	}
 
-	public String getGrabSign() {
-		return grabSign;
+	public String getGrabedSign() {
+		return grabedSign;
 	}
 
-	public void setGrabSign(String grabSign) {
-		this.grabSign = grabSign;
+	public void setGrabedSign(String grabedSign) {
+		this.grabedSign = grabedSign;
 	}
 
 	public String getAddTime() {
@@ -45,12 +52,12 @@ public class GrabLib {
 		this.addTime = addTime;
 	}
 
-	public Integer getWebsiteId() {
-		return websiteId;
+	public String getWebsite() {
+		return website;
 	}
 
-	public void setWebsiteId(Integer websiteId) {
-		this.websiteId = websiteId;
+	public void setWebsite(String website) {
+		this.website = website;
 	}
 
 }

@@ -1,6 +1,9 @@
 package cn.grad.grabing.domain;
 
-public class VideoAuthor {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class VideoAuthor implements Serializable {
 
 	private Integer authorId;
 	private String signature;
@@ -13,7 +16,13 @@ public class VideoAuthor {
 
 	public VideoAuthor() {
 		super();
-		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "VideoAuthor [authorId=" + authorId + ", signature=" + signature + ", videoCount=" + videoCount
+				+ ", attentionCount=" + attentionCount + ", audienceCount=" + audienceCount + ", authorPageUrl="
+				+ authorPageUrl + ", authorPic=" + authorPic + ", authorName=" + authorName + "]";
 	}
 
 	public Integer getAuthorId() {

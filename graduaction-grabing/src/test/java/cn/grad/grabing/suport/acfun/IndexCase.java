@@ -14,15 +14,30 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.grad.grabing.entityutil.acfunc.VideoSection;
+import cn.grad.grabing.helper.DocumentInitailizer;
 import cn.grad.grabing.support.acfunc.IndexAnalizer;
 import cn.grad.grabing.util.PropertiesIO;
-import cn.grad.grabing.util.ResourceGetter;
-import cn.grad.grabing.util.StrPropertiesMapper;
+import cn.grad.grabing.util.Validation;
 
 @RunWith(SpringJUnit4ClassRunner.class) // 使用Junit4进行测试
 @ContextConfiguration(locations = { "classpath:spring/spring-mybatis.xml", })
-public class IndexCase extends ResourceGetter {
+public class IndexCase extends DocumentInitailizer {
 
+	public final String CAROUSEL = "carousel";
+	public final String MONKEYRECOMMEND = "monkeyrecommend";
+	public final String BANANAANDARTICLE = "bananaandarticle";
+	public final String ENTERTAINMENT = "entertainment";
+	public final String DRAMASERIES = "dramaseries";
+	public final String GAME = "game";
+	public final String ANIMATION = "animation";
+	public final String MUSIC = "music";
+	public final String DANCERKANOJO = "dancerkanojo";
+	public final String FISHESPOOL = "fishespool";
+	public final String SCIENCEANDTECHNO = "scienceandtechno";
+	public final String SPORT = "sport";
+	public final String TEMPLATE = "template";
+	public final String HEADER = "header";
+	
 	private static final String userAgent = "Mozilla/5.0 (Windows NT 6.1; W…) Gecko/20100101 Firefox/56.0";
 	@Autowired
 	IndexAnalizer indexAnalizer;
@@ -89,7 +104,7 @@ public class IndexCase extends ResourceGetter {
 	@Test
 	public void testCarouselSectionAnalizer() {
 		List<VideoSection> carousels = indexAnalizer
-				.analizeCarouselSection(getElementByNameUsingUserAgent(StrPropertiesMapper.CAROUSEL));
+				.analizeCarouselSection(getElementByNameUsingUserAgent(CAROUSEL));
 		print(carousels);
 	}
 
@@ -99,7 +114,7 @@ public class IndexCase extends ResourceGetter {
 	@Test
 	public void testMonkeyRecommendSectionAnalizer() {
 		List<VideoSection> recommends = indexAnalizer
-				.analizeMonkeySection(getElementByNameUsingUserAgent(StrPropertiesMapper.MONKEYRECOMMEND));
+				.analizeMonkeySection(getElementByNameUsingUserAgent(MONKEYRECOMMEND));
 		print(recommends);
 	}
 
@@ -109,7 +124,7 @@ public class IndexCase extends ResourceGetter {
 	@Test
 	public void testBananaSectionAnalizer() {
 		List<VideoSection> results = indexAnalizer
-				.analizeBananaSection(getElementByNameUsingUserAgent(StrPropertiesMapper.BANANAANDARTICLE));
+				.analizeBananaSection(getElementByNameUsingUserAgent(BANANAANDARTICLE));
 		print(results);
 	}
 
@@ -119,7 +134,7 @@ public class IndexCase extends ResourceGetter {
 	@Test
 	public void testEntertainmentSectionAnalizer() {
 		List<VideoSection> results = indexAnalizer
-				.analizeEntertainmentSection(getElementByNameUsingUserAgent(StrPropertiesMapper.ENTERTAINMENT));
+				.analizeEntertainmentSection(getElementByNameUsingUserAgent(ENTERTAINMENT));
 		print(results);
 	}
 
@@ -129,7 +144,7 @@ public class IndexCase extends ResourceGetter {
 	@Test
 	public void testDramaSeriesSectionAnalizer() {
 		List<VideoSection> results = indexAnalizer
-				.analizeDramaSeriesSection(getElementByNameUsingUserAgent(StrPropertiesMapper.DRAMASERIES));
+				.analizeDramaSeriesSection(getElementByNameUsingUserAgent(DRAMASERIES));
 		print(results);
 	}
 
@@ -139,7 +154,7 @@ public class IndexCase extends ResourceGetter {
 	@Test
 	public void testGameSectionAnalizer() {
 		List<VideoSection> results = indexAnalizer
-				.analizeGameSection(getElementByNameUsingUserAgent(StrPropertiesMapper.GAME));
+				.analizeGameSection(getElementByNameUsingUserAgent(GAME));
 		print(results);
 	}
 
@@ -149,7 +164,7 @@ public class IndexCase extends ResourceGetter {
 	@Test
 	public void testAnimationSectionAnalizer() {
 		List<VideoSection> results = indexAnalizer
-				.analizeAnimationSection(getElementByNameUsingUserAgent(StrPropertiesMapper.ANIMATION));
+				.analizeAnimationSection(getElementByNameUsingUserAgent(ANIMATION));
 		print(results);
 	}
 
@@ -159,7 +174,7 @@ public class IndexCase extends ResourceGetter {
 	@Test
 	public void testSecondYuanSectionAnalizer() {
 		List<VideoSection> results = indexAnalizer
-				.analizeSecondYuanSection(getElementByNameUsingUserAgent(StrPropertiesMapper.SCIENCEANDTECHNO));
+				.analizeSecondYuanSection(getElementByNameUsingUserAgent(SCIENCEANDTECHNO));
 		print(results);
 	}
 
@@ -169,7 +184,7 @@ public class IndexCase extends ResourceGetter {
 	@Test
 	public void testMusicSectionAnalizer() {
 		List<VideoSection> results = indexAnalizer
-				.analizeMusicSection(getElementByNameUsingUserAgent(StrPropertiesMapper.MUSIC));
+				.analizeMusicSection(getElementByNameUsingUserAgent(MUSIC));
 		print(results);
 	}
 
@@ -179,7 +194,7 @@ public class IndexCase extends ResourceGetter {
 	@Test
 	public void testDancerKanojoSectionAnalizer() {
 		List<VideoSection> results = indexAnalizer
-				.analizeDancerKanojoSection(getElementByNameUsingUserAgent(StrPropertiesMapper.DANCERKANOJO));
+				.analizeDancerKanojoSection(getElementByNameUsingUserAgent(DANCERKANOJO));
 		print(results);
 	}
 
@@ -189,7 +204,7 @@ public class IndexCase extends ResourceGetter {
 	@Test
 	public void testFishesPoolSectionAnalizer() {
 		List<VideoSection> results = indexAnalizer
-				.analizeFishesPoolSection(getElementByNameUsingUserAgent(StrPropertiesMapper.FISHESPOOL));
+				.analizeFishesPoolSection(getElementByNameUsingUserAgent(FISHESPOOL));
 		print(results);
 	}
 
@@ -199,7 +214,7 @@ public class IndexCase extends ResourceGetter {
 	@Test
 	public void testScienceAndTechnoSectionAnalizer() {
 		List<VideoSection> results = indexAnalizer
-				.analizeScienceAndTechnoSection(getElementByNameUsingUserAgent(StrPropertiesMapper.SCIENCEANDTECHNO));
+				.analizeScienceAndTechnoSection(getElementByNameUsingUserAgent(SCIENCEANDTECHNO));
 		print(results);
 	}
 
@@ -209,7 +224,7 @@ public class IndexCase extends ResourceGetter {
 	@Test
 	public void testSportSectionAnalizer() {
 		List<VideoSection> results = indexAnalizer
-				.analizeSportSection(getElementByNameUsingUserAgent(StrPropertiesMapper.SPORT));
+				.analizeSportSection(getElementByNameUsingUserAgent(SPORT));
 		print(results);
 	}
 
@@ -219,7 +234,7 @@ public class IndexCase extends ResourceGetter {
 	@Test
 	public void testTemplateSectionAnalizer() {
 		List<VideoSection> results = indexAnalizer
-				.analizeTempSection(getElementByNameUsingUserAgent(StrPropertiesMapper.TEMPLATE));
+				.analizeTempSection(getElementByNameUsingUserAgent(TEMPLATE));
 		print(results);
 	}
 
@@ -240,5 +255,59 @@ public class IndexCase extends ResourceGetter {
 	public void testScriptGrabing() {
 		Document document = getDocumentByUrl(getUrl(), getHeaderParams());
 		System.out.println(document.getElementsByTag("script"));
+	}
+	
+	private Element getDocumentSectionByName(String sectionName, String url, Map<String, Object> params) {
+		int sectionNum = -1;
+		Document doc = getDocumentByUrl(url, params);
+		if (Validation.isNull(doc)) {
+			log.error("can`t getting a page from uri: " + url);
+			return null;
+		}
+		if (Validation.isStrIgnoreCaseEquals(HEADER, sectionName))
+			return doc;
+		switch (sectionName) {
+		case CAROUSEL:
+			sectionNum = 0;
+			break;
+		case MONKEYRECOMMEND:
+			sectionNum = 1;
+			break;
+		case BANANAANDARTICLE:
+			sectionNum = 2;
+			break;
+		case ENTERTAINMENT:
+			sectionNum = 3;
+			break;
+		case DRAMASERIES:
+			sectionNum = 4;
+			break;
+		case GAME:
+			sectionNum = 5;
+			break;
+		case ANIMATION:
+			sectionNum = 6;
+			break;
+		case DANCERKANOJO:
+			sectionNum = 7;
+			break;
+		case FISHESPOOL:
+			sectionNum = 8;
+			break;
+		case SCIENCEANDTECHNO:
+			sectionNum = 9;
+			break;
+		case SPORT:
+			sectionNum = 10;
+			break;
+		default:
+			break;
+		}
+		Element result = doc.getElementById("main").getElementsByTag("section").get(sectionNum);
+		if (Validation.isNull(result)) {
+			log.error("can not to get " + sectionName + " section");
+			return null;
+		}
+		return result;
 	}
 }
