@@ -7,7 +7,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
-import cn.grad.grabing.entityutil.acfunc.VideoSection;
+import cn.grad.grabing.entityutil.acfun.VideoSection;
+import cn.grad.grabing.entityutil.acfun.index.Nav;
+import cn.grad.grabing.entityutil.acfun.index.NavEl;
 import cn.grad.grabing.util.Validation;
 
 @Component
@@ -19,7 +21,7 @@ public class IndexAnalizer extends CommonAnalizer {
 	 * @param header
 	 * @return
 	 */
-	public List<String> analizeHeaderForUrls(Element header) {
+	public Nav analizeHeaderForUrls(Element header) {
 		if (Validation.isNull(header) || Validation.isEmpty(header.getElementsByTag("nav"))) {
 			log.error("the header content is empty");
 			return null;
@@ -30,14 +32,22 @@ public class IndexAnalizer extends CommonAnalizer {
 			log.error("the header don`t have super link");
 			return null;
 		}
-		List<String> urls = new ArrayList<String>();
+		Nav result = new Nav();
+		List<NavEl> els = new ArrayList<NavEl>();
 		for (Element ahref : ahrefs) {
 			String url = ahref.attr("abs:href");
-			if (null != url && !"".equals(url)) {
-				urls.add(url);
+			String name = ahref.text();
+			NavEl el = new NavEl();
+			if (Validation.isStrNotEmpty(url)) {
+				el.setLink(url);
 			}
+			if (Validation.isStrNotEmpty(name)) {
+				el.setName(name);
+			}
+			els.add(el);
 		}
-		return urls;
+		result.setEls(els);
+		return result;
 	}
 
 	/**
@@ -64,7 +74,7 @@ public class IndexAnalizer extends CommonAnalizer {
 		Elements carousels = el.getElementsByClass("slider-wrap");
 		return analizeLiElOutCarousel(carousels);
 	}
-	
+
 	/**
 	 * 分析带有视频节点的li
 	 * 
@@ -93,14 +103,14 @@ public class IndexAnalizer extends CommonAnalizer {
 					continue;
 				carou.setLink(link);
 				carou.setImage(li.getElementsByTag("img").get(0).attr("abs:src"));
-				//carou.setVideoName(li.getElementsByClass("slider-title").get(0).text());
+				// carou.setVideoName(li.getElementsByClass("slider-title").get(0).text());
 				results.add(carou);
 			}
 			return results;
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 分析带有视频节点的li
 	 * 
@@ -129,7 +139,7 @@ public class IndexAnalizer extends CommonAnalizer {
 					continue;
 				carou.setLink(link);
 				carou.setImage(li.getElementsByTag("img").get(0).attr("abs:src"));
-				//carou.setVideoName(li.getElementsByClass("slider-title").get(0).text());
+				// carou.setVideoName(li.getElementsByClass("slider-title").get(0).text());
 				results.add(carou);
 			}
 			return results;

@@ -6,7 +6,7 @@ import java.util.Set;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import cn.grad.grabing.entityutil.acfunc.VideoSection;
+import cn.grad.grabing.entityutil.acfun.index.Nav;
 
 public class Validation {
 
@@ -57,6 +57,14 @@ public class Validation {
 
 	public static boolean isPropertiesEmpty(Set<Object> keySet) {
 		return keySet.isEmpty();
+	}
+
+	public static boolean isStrNotEmpty(String str) {
+		return str != null && !"".equals(str.trim());
+	}
+
+	public static boolean isObjNotNull(Nav nav) {
+		return null != nav;
 	}
 
 }

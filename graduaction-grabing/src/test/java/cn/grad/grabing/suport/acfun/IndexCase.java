@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import cn.grad.grabing.entityutil.acfunc.VideoSection;
+import cn.grad.grabing.entityutil.acfun.VideoSection;
 import cn.grad.grabing.helper.DocumentInitailizer;
 import cn.grad.grabing.support.acfunc.IndexAnalizer;
 import cn.grad.grabing.util.PropertiesIO;

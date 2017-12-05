@@ -1,4 +1,4 @@
-package cn.grad.grabing.entityutil.acfunc;
+package cn.grad.grabing.entityutil.acfun;
 
 public class VideoSection {
 	

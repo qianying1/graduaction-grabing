@@ -6,7 +6,7 @@ import java.util.List;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import cn.grad.grabing.entityutil.acfunc.VideoSection;
+import cn.grad.grabing.entityutil.acfun.VideoSection;
 import cn.grad.grabing.util.BaseUtil;
 import cn.grad.grabing.util.Validation;
 

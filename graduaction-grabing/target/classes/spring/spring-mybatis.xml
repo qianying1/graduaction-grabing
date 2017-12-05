@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
 	<bean id="propertyConfigurer"
@@ -43,15 +44,17 @@
 	<!-- 开启事务管理 end -->
 
 	<!-- 定义个通知，指定事务管理器 -->
-
-
+	<aop:aspectj-autoproxy />
 	<context:annotation-config />
-	<context:component-scan base-package="cn.grad.grabing" />
+	<context:component-scan base-package="cn.grad.grabing">
+		<context:include-filter type="annotation"
+			expression="org.aspectj.lang.annotation.Aspect" />
+	</context:component-scan>
 	<!-- dozer -->
 	<bean id="dozer" class="org.dozer.spring.DozerBeanMapperFactoryBean">
 		<property name="mappingFiles">
 			<list>
-				<value>classpath*:spring/dozer-mapping.xml</value>
+				<value>classpath:spring/dozer-mapping.xml</value>
 			</list>
 		</property>
 	</bean>

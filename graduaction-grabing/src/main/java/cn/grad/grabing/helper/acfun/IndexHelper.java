@@ -16,7 +16,9 @@ import cn.grad.grabing.dao.mapper.GrabLibMapper;
 import cn.grad.grabing.dao.mapper.VideoMapper;
 import cn.grad.grabing.domain.GrabLib;
 import cn.grad.grabing.domain.Video;
-import cn.grad.grabing.entityutil.acfunc.VideoSection;
+import cn.grad.grabing.entityutil.acfun.VideoSection;
+import cn.grad.grabing.entityutil.acfun.index.Nav;
+import cn.grad.grabing.entityutil.acfun.index.NavEl;
 import cn.grad.grabing.helper.DocumentInitailizer;
 import cn.grad.grabing.support.acfunc.IndexAnalizer;
 import cn.grad.grabing.util.BaseUtil;
@@ -58,7 +60,6 @@ public class IndexHelper extends BaseUtil {
 	private Properties grabingConfiguations;
 
 	public void beginGrabing() {
-		System.out.println("begin grabing.....");
 		if (Validation.isObjNull(this.doc)) {
 			log.error("the document is empty for url: " + seedUri);
 			// System.out.println("the document is empty for url: " + seedUri);
@@ -140,17 +141,18 @@ public class IndexHelper extends BaseUtil {
 
 	// 首页头部
 	private void analizeHeaderForUrls() {
-		List<String> headerUrls = indexAnalizer.analizeHeaderForUrls(this.doc);
-		insertGrabLibs(headerUrls);
+		Nav headerNav = indexAnalizer.analizeHeaderForUrls(this.doc);
+		insertGrabLibs(headerNav); 
 	}
 
 	// 向grabLib添加数据
-	private void insertGrabLibs(List<String> urls) {
-		if (!Validation.isListEmpty(urls)) {
+	private void insertGrabLibs(Nav nav) {
+		if (Validation.isObjNotNull(nav)) {
 			List<GrabLib> libs = new ArrayList<>();
-			for (String url : urls) {
+			List<> 
+			for (NavEl el : nav.getEls()) {
 				GrabLib lib = new GrabLib();
-				lib.setWebSiteAddr(url);
+				lib.setWebSiteAddr(el.getLink());
 				lib.setGrabedSign("N");
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 				lib.setAddTime(df.format(new Date()));
