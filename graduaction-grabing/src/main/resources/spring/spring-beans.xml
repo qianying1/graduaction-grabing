@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- ============================================================ utils ================================================================================= -->
+    <!-- ==================== acfun ======================== -->
+    <bean id="acfunURL" class="java.net.URL">
+        <constructor-arg index="0" type="java.lang.String">
+            <value>#{websites['acfun']}</value>
+        </constructor-arg>
+    </bean>
+    <bean id="acfunWebRequest" class="com.gargoylesoftware.htmlunit.WebRequest">
+        <constructor-arg name="url" ref="acfunURL"/>
+        <!--<property name="url" ref="acfunURL" />-->
+        <property name="charset" value="#{systemConfigs['webRequest.charset']}"/>
+        <property name="proxyHost" value="#{systemConfigs['webRequest.proxyHost']}"/>
+        <property name="proxyPort" value="#{systemConfigs['webRequest.proxyPort']}"/>
+        <property name="additionalHeaders">
+            <map>
+                <entry key="Referer" value="#{systemConfigs['webRequest.header.Referer']}"/>
+                <entry key="User-Agent" value="#{systemConfigs['webRequest.header.User-Agent']}"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="acfunWebClient" class="com.gargoylesoftware.htmlunit.WebClient">
+        <property name="cookieManager">
+            <bean class="com.gargoylesoftware.htmlunit.CookieManager">
+                <property name="cookiesEnabled" value="#{systemConfigs['webClient.cookieManager.cookiesEnabled']}"/>
+                <!--<property name="#{acfunWebClient.getCookieManager().addCookie}" value="" />-->
+            </bean>
+        </property>
+    </bean>
+    <!-- ==================== acfun ======================== -->
+    <!-- ==================== bilibili ======================== -->
+    <bean id="bilibiliURL" class="java.net.URL">
+        <constructor-arg index="0" type="java.lang.String">
+            <value>#{websites['bilibili']}</value>
+        </constructor-arg>
+    </bean>
+    <bean id="bilibiliWebRequest" class="com.gargoylesoftware.htmlunit.WebRequest">
+        <constructor-arg name="url" ref="bilibiliURL"/>
+        <!--<property name="url" ref="bilibiliURL" />-->
+        <property name="charset" value="#{systemConfigs['webRequest.charset']}"/>
+        <property name="proxyHost" value="#{systemConfigs['webRequest.proxyHost']}"/>
+        <property name="proxyPort" value="#{systemConfigs['webRequest.proxyPort']}"/>
+        <property name="additionalHeaders">
+            <map>
+                <entry key="Referer" value="#{systemConfigs['webRequest.header.Referer']}"/>
+                <entry key="User-Agent" value="#{systemConfigs['webRequest.header.User-Agent']}"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="bilibiliWebClient" class="com.gargoylesoftware.htmlunit.WebClient">
+        <property name="cookieManager">
+            <bean class="com.gargoylesoftware.htmlunit.CookieManager">
+                <property name="cookiesEnabled" value="#{systemConfigs['webClient.cookieManager.cookiesEnabled']}"/>
+                <!--<property name="#{bilibiliWebClient.getCookieManager().addCookie}" value="" />-->
+            </bean>
+        </property>
+    </bean>
+    <!-- ==================== bilibili ======================== -->
+
+    <!-- ============================================================ utils ================================================================================= -->
+
+</beans>
