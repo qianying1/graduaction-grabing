@@ -1,5 +1,6 @@
 package cn.grad.grabing.service.impl;
 
+import cn.grad.grabing.util.StrPropertiesMapper;
 import org.springframework.stereotype.Service;
 
 import cn.grad.grabing.service.LeshiGrabService;
@@ -12,15 +13,8 @@ public class LeshiGrabServiceImpl extends BaseUtil implements LeshiGrabService {
 	 * 乐视爬虫入口
 	 */
 	@Override
-	public void beginLetvGrabing() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void beginGrabing() {
 
-	@Override
-	public void initBeforeGrabing(String targetValue) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

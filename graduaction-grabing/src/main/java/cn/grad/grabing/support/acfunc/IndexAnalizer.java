@@ -1,17 +1,18 @@
 package cn.grad.grabing.support.acfunc;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import cn.grad.grabing.entity.*;
+import cn.grad.grabing.util.NumberFormater;
+import cn.grad.grabing.util.Validation;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
-import cn.grad.grabing.entityutil.acfun.VideoSection;
-import cn.grad.grabing.entityutil.acfun.index.Nav;
-import cn.grad.grabing.entityutil.acfun.index.NavEl;
-import cn.grad.grabing.util.Validation;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * 首页分析器
+ */
 @Component
 public class IndexAnalizer extends CommonAnalizer {
 
@@ -21,130 +22,144 @@ public class IndexAnalizer extends CommonAnalizer {
 	 * @param header
 	 * @return
 	 */
-	public Nav analizeHeaderForUrls(Element header) {
-		if (Validation.isNull(header) || Validation.isEmpty(header.getElementsByTag("nav"))) {
-			log.error("the header content is empty");
-			return null;
+	public void analizeHeaderForUrls(Element header, Navigation navigation) {
+		if (Validation.isNull(header) || Validation.isListEmpty(header.getElementsByTag("nav"))) {
+			log.error("the header content is empty of acfun index page");
+			return;
 		}
 		Element nav = header.getElementById("nav");
 		Elements ahrefs = nav.select("a");
-		if (Validation.isEmpty(ahrefs)) {
-			log.error("the header don`t have super link");
-			return null;
+		if (Validation.isListEmpty(ahrefs)) {
+			log.error("the header don`t have super link of acfun index page");
+			return;
 		}
-		Nav result = new Nav();
-		List<NavEl> els = new ArrayList<NavEl>();
+		navigation.setLocation(Navigation.location.top);
 		for (Element ahref : ahrefs) {
 			String url = ahref.attr("abs:href");
 			String name = ahref.text();
-			NavEl el = new NavEl();
+			NavNode el = new NavNode();
 			if (Validation.isStrNotEmpty(url)) {
-				el.setLink(url);
+				el.setAhref(url);
 			}
 			if (Validation.isStrNotEmpty(name)) {
 				el.setName(name);
 			}
-			els.add(el);
+			navigation.getNavNodeList().add(el);
 		}
-		result.setEls(els);
-		return result;
 	}
-
 	/**
 	 * 分析页面中带有轮播的section节点
 	 * 
 	 * @param section
 	 * @return
 	 */
-	public List<VideoSection> analizeCarouselSection(Element section) {
-		List<VideoSection> result = new ArrayList<>();
-		result.addAll(analizeCarouInCarouselSection(section));
-		result.addAll(analizeOthersInCarouselSection(section));
-		return result;
+	public void analizeCarouselSection(Element section, CarouseSection carouseSection) {
+		if(Validation.isObjNull(carouseSection)){
+			carouseSection=new CarouseSection();
+		}
+		try {
+			analizeCarousel(section,carouseSection);
+			analizeOthers(section,carouseSection);
+		}catch (Exception e){
+			e.printStackTrace();
+			log.error("Error on grabbing carousel section of acfun!",e);
+		}
 	}
 
-	// 分析除轮播之外的其他各小视频
-	private List<VideoSection> analizeOthersInCarouselSection(Element el) {
-		Elements carousels = el.getElementsByClass("slider-right-x6");
-		return analizeLiElInCarousel(carousels);
+	/**
+	 * 分析轮播节点六小图部分
+	 *
+	 * @param el
+	 * @param carouseSection
+	 * @return
+	 */
+	private void analizeOthers(Element el,CarouseSection carouseSection) {
+		Elements x6s = el.getElementsByClass("slider-right-x6");
+		if (Validation.isObjNotNull(x6s)&&Validation.isListNotEmpty(x6s)) {
+			Element x6El = x6s.get(0);
+			if (Validation.isNull(x6El)) {
+				log.error("the x6 videos is null in carousel section of index page!");
+				return;
+			}
+			Elements lis = x6El.getElementsByTag("li");
+			if (Validation.isObjNull(lis) || Validation.isListEmpty(lis)) {
+				log.error("the x6 videos is null in carousel section of index page!");
+				return;
+			}
+			List<MaskVideoNode> results = new ArrayList<>();
+			for (Element li : lis) {
+				if (Validation.isNull(li))
+					continue;
+				MaskVideoNode carou = new MaskVideoNode();
+				Element hrefEl=li.getElementsByTag("a").get(0);
+				String link = hrefEl.attr("abs:href");
+				if (!link.contains("acfun"))
+					continue;
+				carou.setHref(link);
+				Element imgEl=li.getElementsByTag("img").get(0);
+				carou.setLogo(imgEl.attr("abs:src"));
+				Element maskEl=li.getElementsByClass("mask").get(0);
+				Element titleEl=maskEl.getElementsByTag("b").get(0);
+				Element upEl=maskEl.getElementsByTag("span").get(0);
+				Element viewEl=maskEl.getElementsByTag("span").get(1);
+				Element viewsEl=viewEl.getElementsByTag("i").get(0);
+				Element masksEl=viewEl.getElementsByTag("i").get(1);
+				carou.setTitle(titleEl.text());
+				carou.setUpMan(upEl.text());
+				String views=viewsEl.text();
+				if(views.contains("万")){
+					views=views.replace("万","000");
+					views=views.replace(".","");
+				}
+				carou.setViews(Long.valueOf(NumberFormater.pareseNumberStr(views)));
+				carou.setMasks(Long.valueOf(NumberFormater.pareseNumberStr(masksEl.text())));
+				carou.setLocation("carouselSection of acfun");
+				results.add(carou);
+			}
+			carouseSection.getMaskVideoNodes().addAll(results);
+		}
 	}
 
-	// 分析轮播模块
-	private List<VideoSection> analizeCarouInCarouselSection(Element el) {
+	/**
+	 * 分析轮播节点轮播图部分
+	 * @param el
+	 * @param carouseSection
+	 */
+	protected void analizeCarousel(Element el,CarouseSection carouseSection) throws Exception{
 		Elements carousels = el.getElementsByClass("slider-wrap");
-		return analizeLiElOutCarousel(carousels);
-	}
-
-	/**
-	 * 分析带有视频节点的li
-	 * 
-	 * @param els
-	 * @return
-	 */
-	private List<VideoSection> analizeLiElInCarousel(Elements els) {
-		List<VideoSection> results = new ArrayList<>();
-		if (!Validation.isEmpty(els)) {
-			Element carousel = els.get(0);
+		if (Validation.isObjNotNull(carousels)&&Validation.isListNotEmpty(carousels)) {
+			Element carousel = carousels.get(0);
 			if (Validation.isNull(carousel)) {
-				log.warn("the carousel is empty of index page");
-				return null;
+				log.error("the carousel is empty in carousel section of index page");
+				return;
 			}
 			Elements lis = carousel.getElementsByTag("li");
-			if (Validation.isObjNull(lis) || Validation.isEmpty(lis)) {
-				log.warn("the carousel don`t have conent");
-				return null;
+			if (Validation.isObjNull(lis) || Validation.isListEmpty(lis)) {
+				log.error("the carousel in carousel section of index page don`t have conent");
+				return;
 			}
+			List<MaskVideoNode> results = new ArrayList<>();
 			for (Element li : lis) {
 				if (Validation.isNull(li))
 					continue;
-				VideoSection carou = new VideoSection();
-				String link = li.getElementsByTag("a").get(0).attr("abs:href");
+				MaskVideoNode carou = new MaskVideoNode();
+				Element aEl=li.getElementsByTag("a").get(0);
+				String link = aEl.attr("abs:href");
 				if (!link.contains("acfun"))
 					continue;
-				carou.setLink(link);
-				carou.setImage(li.getElementsByTag("img").get(0).attr("abs:src"));
-				// carou.setVideoName(li.getElementsByClass("slider-title").get(0).text());
+				carou.setHref(link);
+				Element imgEl=li.getElementsByTag("img").get(0);
+				carou.setLogo(imgEl.attr("abs:src"));
+				Element titleEl=li.getElementsByClass("slider-title").get(0);
+				carou.setTitle(titleEl.getElementsByTag("b").first().text());
+				carou.setLocation("carouselSection of acfun");
 				results.add(carou);
 			}
-			return results;
+			carouseSection.getMaskVideoNodes().addAll(results);
+		}else{
+			log.error("fail to grabbing data from carousel section of acfun!");
+			return;
 		}
-		return null;
-	}
-
-	/**
-	 * 分析带有视频节点的li
-	 * 
-	 * @param els
-	 * @return
-	 */
-	private List<VideoSection> analizeLiElOutCarousel(Elements els) {
-		List<VideoSection> results = new ArrayList<>();
-		if (!Validation.isEmpty(els)) {
-			Element carousel = els.get(0);
-			if (Validation.isNull(carousel)) {
-				log.warn("the carousel is empty of index page");
-				return null;
-			}
-			Elements lis = carousel.getElementsByTag("li");
-			if (Validation.isObjNull(lis) || Validation.isEmpty(lis)) {
-				log.warn("the carousel don`t have conent");
-				return null;
-			}
-			for (Element li : lis) {
-				if (Validation.isNull(li))
-					continue;
-				VideoSection carou = new VideoSection();
-				String link = li.getElementsByTag("a").get(0).attr("abs:href");
-				if (!link.contains("acfun"))
-					continue;
-				carou.setLink(link);
-				carou.setImage(li.getElementsByTag("img").get(0).attr("abs:src"));
-				// carou.setVideoName(li.getElementsByClass("slider-title").get(0).text());
-				results.add(carou);
-			}
-			return results;
-		}
-		return null;
 	}
 
 	/**
@@ -152,7 +167,7 @@ public class IndexAnalizer extends CommonAnalizer {
 	 * 
 	 * @param section
 	 * @return
-	 */
+	 *//*
 	public List<VideoSection> analizeMonkeySection(Element section) {
 		List<VideoSection> videos = new ArrayList<>();
 		if (Validation.isNull(section)) {
@@ -180,12 +195,12 @@ public class IndexAnalizer extends CommonAnalizer {
 		return videos;
 	}
 
-	/**
+	*//**
 	 * 分析页面中香蕉榜中的section节点
 	 * 
 	 * @param section
 	 * @return
-	 */
+	 *//*
 	public List<VideoSection> analizeBananaSection(Element section) {
 		Elements leftContents = section.getElementsByClass("column-left");
 		Elements rightContents = section.getElementsByClass("column-right");
@@ -208,12 +223,12 @@ public class IndexAnalizer extends CommonAnalizer {
 		return analizeASection(el.getElementsByTag("a"));
 	}
 
-	/**
+	*//**
 	 * 分析页面中娱乐版块中的section节点
 	 * 
 	 * @param section
 	 * @return
-	 */
+	 *//*
 	public List<VideoSection> analizeEntertainmentSection(Element section) {
 		List<VideoSection> results = new ArrayList<>();
 		results = analizeASection(section.getElementsByTag("a"));
@@ -223,109 +238,109 @@ public class IndexAnalizer extends CommonAnalizer {
 		return results;
 	}
 
-	/**
+	*//**
 	 * 分析页面中番剧版块中的section节点
 	 * 
 	 * @param section
 	 * @return
-	 */
+	 *//*
 	public List<VideoSection> analizeDramaSeriesSection(Element section) {
 		return commondHandler(section);
 	}
 
-	/**
+	*//**
 	 * 分析页面中游戏版块中的section节点
 	 * 
 	 * @param section
 	 * @return
-	 */
+	 *//*
 	public List<VideoSection> analizeGameSection(Element section) {
 		return commondHandler(section);
 	}
 
-	/**
+	*//**
 	 * 分析页面中动画版块中的section节点
 	 * 
 	 * @param section
 	 * @return
-	 */
+	 *//*
 	public List<VideoSection> analizeAnimationSection(Element section) {
 		return commondHandler(section);
 	}
 
-	/**
+	*//**
 	 * 分析页面中二次元版块中的section节点
 	 * 
 	 * @param section
 	 * @return
-	 */
+	 *//*
 	public List<VideoSection> analizeSecondYuanSection(Element section) {
 		return commondHandler(section);
 	}
 
-	/**
+	*//**
 	 * 分析页面中音乐版块中的section节点
 	 * 
 	 * @param section
 	 * @return
-	 */
+	 *//*
 	public List<VideoSection> analizeMusicSection(Element section) {
 		return commondHandler(section);
 	}
 
-	/**
+	*//**
 	 * 分析页面中舞蹈@彼女版块中的section节点
 	 * 
 	 * @param section
 	 * @return
-	 */
+	 *//*
 	public List<VideoSection> analizeDancerKanojoSection(Element section) {
 		return commondHandler(section);
 	}
 
-	/**
+	*//**
 	 * 分析页面中科技版块中的section节点
 	 * 
 	 * @param section
 	 * @return
-	 */
+	 *//*
 	public List<VideoSection> analizeScienceAndTechnoSection(Element section) {
 		return commondHandler(section);
 	}
 
-	/**
+	*//**
 	 * 分析页面中鱼塘版块中的section节点
 	 * 
 	 * @param section
 	 * @return
-	 */
+	 *//*
 	public List<VideoSection> analizeFishesPoolSection(Element section) {
 		return commondHandler(section);
 	}
 
-	/**
+	*//**
 	 * 分析页面中体育版块中的section节点
 	 * 
 	 * @param section
 	 * @return
-	 */
+	 *//*
 	public List<VideoSection> analizeSportSection(Element section) {
 		return commondHandler(section);
 	}
 
-	/**
+	*//**
 	 * 分析页面中临时添加的版块中的section节点
 	 * 
 	 * @param section
 	 * @return
-	 */
+	 *//*
 	public List<VideoSection> analizeTempSection(Element section) {
 		return commondHandler(section);
 	}
 
-	/**
+	*//**
 	 * section节点的共同处理器
-	 */
+	 *//*
 	private List<VideoSection> commondHandler(Element section) {
 		List<VideoSection> results = new ArrayList<>();
 		results = analizeASection(section.getElementsByTag("a"));
@@ -335,12 +350,12 @@ public class IndexAnalizer extends CommonAnalizer {
 		return results;
 	}
 
-	/**
+	*//**
 	 * 分析导航栏上的节点获取链接地址列表
 	 * 
 	 * @param nav
 	 * @return
-	 */
+	 *//*
 	public List<String> analizeNavForUrls(Element nav) {
 
 		return null;
@@ -358,6 +373,6 @@ public class IndexAnalizer extends CommonAnalizer {
 
 	public void testing() {
 		System.out.println("indexAnalizer testing......");
-	}
+	}*/
 
 }

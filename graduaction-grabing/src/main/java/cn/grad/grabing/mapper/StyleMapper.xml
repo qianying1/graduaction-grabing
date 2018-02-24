@@ -12,17 +12,22 @@
 		l.styleId,l.styleName,l.parentId
 	</sql>
 
-	<resultMap type="cn.grad.grabing.domain.Style" id="styleMap">
+	<resultMap id="styleMap" type="Style">
 		<id column="styleId" property="styleId" jdbcType="BIGINT" />
 		<result column="styleName" property="styleName" jdbcType="VARCHAR" />
 		<result column="parentId" property="parentId" jdbcType="BIGINT" />
 	</resultMap>
 
-	<select id="listAll" resultType="styleMap">
+	<select id="listAll" resultMap="styleMap">
 		<include refid="selectBaseSql"></include>
 	</select>
 
-	<insert id="saveOrUpdate" parameterType="cn.grad.grabing.domain.Style">
+	<select id="selectOneByName" resultType="Style" parameterType="java.lang.String">
+		SELECT l.* FROM tb_style l WHERE 1=1 and
+		l.styleName=#{styleName,jdbcType=CHAR}
+	</select>
+
+	<insert id="saveOrUpdate" parameterType="Style" useGeneratedKeys="true">
 		<include refid="insertBaseSql"></include>
 		values(#{styleName,jdbcType=CHAR},
 		<if test="parentId != null">

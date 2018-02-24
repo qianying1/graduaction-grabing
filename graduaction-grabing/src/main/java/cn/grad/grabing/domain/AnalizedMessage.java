@@ -2,41 +2,51 @@ package cn.grad.grabing.domain;
 
 import java.io.Serializable;
 
-@SuppressWarnings("serial")
-public class AnalizedMessage implements Serializable {
-	private Integer msgId;
-	private String videoStyle;
+/**
+ * 分析信息
+ */
+public class AnalizedMessage extends BaseEntity implements Serializable {
+	private static final long serialVersionUID = -6138304750843680637L;
+
+	/**
+	 * 视频类型
+	 */
+	private Style videoType;
+	/**
+	 * 所属视频
+	 */
+	private Video video;
+	/**
+	 * 视频名称
+	 */
 	private String videoName;
-	private Integer playTimes;
-	private String averageEval;
-	private String mostLikeUserLocation;
-	private Integer videoCommentTimes;
+	/**
+	 * 视频点击次数
+	 */
+	private Long views;
+	/**
+	 * 视频平均评分
+	 */
+	private Float averageEval;
+	/**
+	 * 视频评论数量
+	 */
+	private Long comments;
 
-	@Override
-	public String toString() {
-		return "AnalizedMessage [msgId=" + msgId + ", videoStyle=" + videoStyle + ", videoName=" + videoName
-				+ ", playTimes=" + playTimes + ", averageEval=" + averageEval + ", mostLikeUserLocation="
-				+ mostLikeUserLocation + ", videoCommentTimes=" + videoCommentTimes + "]";
+	public Style getVideoType() {
+		return videoType;
 	}
 
-	public AnalizedMessage() {
-		super();
+	public void setVideoType(Style videoType) {
+		this.videoType = videoType;
 	}
 
-	public Integer getMsgId() {
-		return msgId;
+	public Video getVideo() {
+		return video;
 	}
 
-	public void setMsgId(Integer msgId) {
-		this.msgId = msgId;
-	}
-
-	public String getVideoStyle() {
-		return videoStyle;
-	}
-
-	public void setVideoStyle(String videoStyle) {
-		this.videoStyle = videoStyle;
+	public void setVideo(Video video) {
+		this.video = video;
 	}
 
 	public String getVideoName() {
@@ -47,36 +57,27 @@ public class AnalizedMessage implements Serializable {
 		this.videoName = videoName;
 	}
 
-	public Integer getPlayTimes() {
-		return playTimes;
+	public Long getViews() {
+		return views;
 	}
 
-	public void setPlayTimes(Integer playTimes) {
-		this.playTimes = playTimes;
+	public void setViews(Long views) {
+		this.views = views;
 	}
 
-	public String getAverageEval() {
+	public Float getAverageEval() {
 		return averageEval;
 	}
 
-	public void setAverageEval(String averageEval) {
+	public void setAverageEval(Float averageEval) {
 		this.averageEval = averageEval;
 	}
 
-	public String getMostLikeUserLocation() {
-		return mostLikeUserLocation;
+	public Long getComments() {
+		return comments;
 	}
 
-	public void setMostLikeUserLocation(String mostLikeUserLocation) {
-		this.mostLikeUserLocation = mostLikeUserLocation;
+	public void setComments(Long comments) {
+		this.comments = comments;
 	}
-
-	public Integer getVideoCommentTimes() {
-		return videoCommentTimes;
-	}
-
-	public void setVideoCommentTimes(Integer videoCommentTimes) {
-		this.videoCommentTimes = videoCommentTimes;
-	}
-
 }

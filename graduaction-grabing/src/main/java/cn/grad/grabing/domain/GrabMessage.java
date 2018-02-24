@@ -2,38 +2,48 @@ package cn.grad.grabing.domain;
 
 import java.io.Serializable;
 
-@SuppressWarnings("serial")
-public class GrabMessage implements Serializable {
-	private Integer msgId;
-	private String videoName; // 视频名称
-	private String playCount; // 视频播放次数
-	private Integer likeCount; // 收藏数
-	private Integer commentCount; // 评论数
-	private Integer barrage; // 弹幕数
-	private Integer bananaCount; // 投蕉数
-	private String videoAddTime; // 视频发布时间
-	private Integer authorId; // 作者
-	private String videoType; // 视频类型
+/**
+ * 需要爬取的信息
+ */
+public class GrabMessage extends BaseEntity implements Serializable {
+	private static final long serialVersionUID = 3147314731230065771L;
 
-	@Override
-	public String toString() {
-		return "GrabMessage [msgId=" + msgId + ", videoName=" + videoName + ", playCount=" + playCount + ", likeCount="
-				+ likeCount + ", commentCount=" + commentCount + ", barrage=" + barrage + ", bananaCount=" + bananaCount
-				+ ", videoAddTime=" + videoAddTime + ", authorId=" + authorId + ", videoType=" + videoType + "]";
-	}
-
-	public GrabMessage() {
-		super();
-
-	}
-
-	public Integer getMsgId() {
-		return msgId;
-	}
-
-	public void setMsgId(Integer msgId) {
-		this.msgId = msgId;
-	}
+	/**
+	 * 视频名称
+	 */
+	private String videoName;
+	/**
+	 * 视频播放次数
+	 */
+	private String playCount;
+	/**
+	 * 收藏数
+	 */
+	private Integer likeCount;
+	/**
+	 * 评论数
+	 */
+	private Integer commentCount;
+	/**
+	 * 弹幕数
+	 */
+	private Integer barrage;
+	/**
+	 * 投蕉数
+	 */
+	private Integer bananaCount;
+	/**
+	 * 视频发布时间
+	 */
+	private String videoAddTime;
+	/**
+	 * 作者
+	 */
+	private VideoAuthor author;
+	/**
+	 * 视频类型
+	 */
+	private Style videoType;
 
 	public String getVideoName() {
 		return videoName;
@@ -49,6 +59,22 @@ public class GrabMessage implements Serializable {
 
 	public void setPlayCount(String playCount) {
 		this.playCount = playCount;
+	}
+
+	public Integer getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(Integer likeCount) {
+		this.likeCount = likeCount;
+	}
+
+	public Integer getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(Integer commentCount) {
+		this.commentCount = commentCount;
 	}
 
 	public Integer getBarrage() {
@@ -75,36 +101,19 @@ public class GrabMessage implements Serializable {
 		this.videoAddTime = videoAddTime;
 	}
 
-	public String getVideoType() {
+	public VideoAuthor getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(VideoAuthor author) {
+		this.author = author;
+	}
+
+	public Style getVideoType() {
 		return videoType;
 	}
 
-	public void setVideoType(String videoType) {
+	public void setVideoType(Style videoType) {
 		this.videoType = videoType;
 	}
-
-	public Integer getAuthorId() {
-		return authorId;
-	}
-
-	public void setAuthorId(Integer authorId) {
-		this.authorId = authorId;
-	}
-
-	public Integer getLikeCount() {
-		return likeCount;
-	}
-
-	public void setLikeCount(Integer likeCount) {
-		this.likeCount = likeCount;
-	}
-
-	public Integer getCommentCount() {
-		return commentCount;
-	}
-
-	public void setCommentCount(Integer commentCount) {
-		this.commentCount = commentCount;
-	}
-
 }

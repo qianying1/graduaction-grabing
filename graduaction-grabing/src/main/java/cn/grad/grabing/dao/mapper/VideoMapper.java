@@ -11,4 +11,5 @@ public interface VideoMapper extends CommonMapper<Video> {
 
 	void inserts(List<Video> vids);
 
+	void insert(Video video);
 }

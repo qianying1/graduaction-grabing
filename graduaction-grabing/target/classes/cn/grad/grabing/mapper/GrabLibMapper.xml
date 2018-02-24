@@ -9,15 +9,15 @@
 		SELECT l.* FROM tb_grab_lib
 	</sql>
 	<insert id="inserts" useGeneratedKeys="true" parameterType="java.util.List">
-		<selectKey resultType="long" keyProperty="gradId" order="AFTER">
+		<selectKey resultType="long" keyProperty="id" order="AFTER">
 			SELECT
 			LAST_INSERT_ID()
 		</selectKey>
 		<include refid="insertBaseSql"></include>
-		(website,web_site_addr,grab_sign,add_time) VALUES
+		(website,webSiteAddr,isGrabbed,name,createDate) VALUES
 		<foreach collection="list" item="item" index="index"
 			separator=",">
-			(#{item.website},#{item.webSiteAddr},#{item.grabedSign},#{item.addTime})
+			(#{item.website},#{item.webSiteAddr},#{item.isGrabbed},#{item.name},#{item.createDate})
 		</foreach>
 	</insert>
 </mapper>

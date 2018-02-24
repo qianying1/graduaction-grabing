@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.grad.grabing.dao.mapper.VideoAuthorMapper">
-	<insert id="insertVideoAuthor" parameterType="cn.grad.grabing.domain.VideoAuthor"
-		useGeneratedKeys="true" keyProperty="id">
+	<insert id="insert" parameterType="VideoAuthor" useGeneratedKeys="true" keyProperty="id">
+		<selectKey resultType="long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 		insert into
-		tb_video_author(signature,video_count,attention_count,audience_count,author_page_url,author_pic,author_name)
-		values(#{signature,jdbcType=VARCHAR},#{videoCount,jdbcType=BIGINT},#{attentionCount,jdbcType=BIGINT},#{audienceCount,jdbcType=BIGINT},#{authorPageUrl,jdbcType=VARCHAR},#{authorPic,jdbcType=VARCHAR},#{authorName,jdbcType=VARCHAR})
+		tb_video_author(name,indexHref,signature,videoCount,attentionCount,audienceCount,logo)
+		values(#{name,jdbcType=VARCHAR},#{indexHref,jdbcType=VARCHAR},#{signature,jdbcType=VARCHAR},#{videoCount,jdbcType=BIGINT},#{attentionCount,jdbcType=BIGINT},#{audienceCount,jdbcType=BIGINT},#{logo,jdbcType=VARCHAR})
 	</insert>
 
-	<select id="selectVideoAuthors" parameterType="java.lang.String"
+	<select id="selects" parameterType="java.lang.String"
 		resultType="java.util.List">
 		select * from tb_video_author where
-		author_page_url=#{authorPageUrl}
+		indexHref=#{indexHref}
 	</select>
 </mapper>

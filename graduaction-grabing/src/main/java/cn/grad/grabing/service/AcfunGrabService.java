@@ -1,9 +1,17 @@
 package cn.grad.grabing.service;
 
+import org.jsoup.Connection;
+
 public interface AcfunGrabService{
 
-	void beginAcfunGrabing();
-	
-	void initIndexBeforeGrabing(String targetUri);
-	
+
+	void beginGrabing();
+
+	Connection initBeforeGrabing(String targetValue);
+
+	void initJsoupDocumentConnection(Connection connection);
+
+	void initHtmlUnitWebClient();
+
+	void initHtmlUnitWebRequest();
 }

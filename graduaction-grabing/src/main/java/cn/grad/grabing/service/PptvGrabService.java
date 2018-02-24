@@ -1,9 +1,11 @@
 package cn.grad.grabing.service;
 
+import org.jsoup.Connection;
+
 public interface PptvGrabService {
 
-	void beginPptvGrabing();
+	void beginGrabing();
 
-	void initBeforeGrabing(String targetValue);
+	Connection initBeforeGrabing(String targetValue);
 
 }

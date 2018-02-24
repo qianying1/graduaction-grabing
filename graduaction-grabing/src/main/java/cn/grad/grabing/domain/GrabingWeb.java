@@ -2,8 +2,12 @@ package cn.grad.grabing.domain;
 
 import java.io.Serializable;
 
-@SuppressWarnings("serial")
-public class GrabingWeb implements Serializable {
+/**
+ *
+ */
+public class GrabingWeb extends BaseEntity implements Serializable {
+	private static final long serialVersionUID = -9032312874483163637L;
+
 	private String webName;
 	private String url;
 

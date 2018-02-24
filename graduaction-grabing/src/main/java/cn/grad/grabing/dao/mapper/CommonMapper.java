@@ -25,8 +25,8 @@ public interface CommonMapper<T> {
      * @param id 
      * @return 
      */  
-    public int deleteById(Class<T> clazz,  
-            Serializable id);  
+    public int deleteById(Class<T> clazz,
+                          Serializable id);
   
     /** 
      *  
@@ -55,7 +55,7 @@ public interface CommonMapper<T> {
      * @param p 
      * @return 
      */  
-    public Page<T> pageSelect(Class<T> clazz,Page<T> p,String[]attrs,Object[]values);  
+    public Page<T> pageSelect(Class<T> clazz, Page<T> p, String[] attrs, Object[] values);
       
       
     /** 
@@ -67,7 +67,7 @@ public interface CommonMapper<T> {
      * @param values 
      * @return 
      */  
-    public int pageCount(Class<T> clazz,String[]attrs,Object[]values);  
+    public int pageCount(Class<T> clazz, String[] attrs, Object[] values);
   
     /** 
      *  

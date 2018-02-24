@@ -1,9 +1,11 @@
 package cn.grad.grabing.service;
 
+import org.jsoup.Connection;
+
 public interface DouyuGrabService {
 
-	void initBeforeGrabing(String targetValue);
+    void beginGrabing();
 
-	void beginDouyuGrabing();
+    Connection initBeforeGrabing(String targetValue);
 
 }

@@ -1,36 +1,64 @@
 package cn.grad.grabing.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
-@SuppressWarnings("serial")
-public class VideoAuthor implements Serializable {
-
-	private Integer authorId;
+/**
+ * 短视频作者
+ */
+public class VideoAuthor extends BaseEntity implements Serializable {
+	private static final long serialVersionUID = -2043979559882919440L;
+	/**
+	 * 作者名称
+	 */
+	private String name;
+	/**
+	 * 首页地址
+	 */
+	private String indexHref;
+	/**
+	 * 签名
+	 */
 	private String signature;
+	/**
+	 * 拥有视频数量
+	 */
 	private Integer videoCount;
+	/**
+	 * 受关注度
+	 */
 	private Integer attentionCount;
+	/**
+	 * 粉丝数量
+	 */
 	private Integer audienceCount;
-	private String authorPageUrl;
-	private String authorPic;
-	private String authorName;
+	/**
+	 * 作者头像
+	 */
+	private String logo;
+	/**
+	 * 短视频
+	 */
+	private List<Video> videoNodes;
 
 	public VideoAuthor() {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "VideoAuthor [authorId=" + authorId + ", signature=" + signature + ", videoCount=" + videoCount
-				+ ", attentionCount=" + attentionCount + ", audienceCount=" + audienceCount + ", authorPageUrl="
-				+ authorPageUrl + ", authorPic=" + authorPic + ", authorName=" + authorName + "]";
+	public String getName() {
+		return name;
 	}
 
-	public Integer getAuthorId() {
-		return authorId;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setAuthorId(Integer authorId) {
-		this.authorId = authorId;
+	public String getIndexHref() {
+		return indexHref;
+	}
+
+	public void setIndexHref(String indexHref) {
+		this.indexHref = indexHref;
 	}
 
 	public String getSignature() {
@@ -65,28 +93,19 @@ public class VideoAuthor implements Serializable {
 		this.audienceCount = audienceCount;
 	}
 
-	public String getAuthorPageUrl() {
-		return authorPageUrl;
+	public String getLogo() {
+		return logo;
 	}
 
-	public void setAuthorPageUrl(String authorPageUrl) {
-		this.authorPageUrl = authorPageUrl;
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
-	public String getAuthorPic() {
-		return authorPic;
+	public List<Video> getVideoNodes() {
+		return videoNodes;
 	}
 
-	public void setAuthorPic(String authorPic) {
-		this.authorPic = authorPic;
+	public void setVideoNodes(List<Video> videoNodes) {
+		this.videoNodes = videoNodes;
 	}
-
-	public String getAuthorName() {
-		return authorName;
-	}
-
-	public void setAuthorName(String authorName) {
-		this.authorName = authorName;
-	}
-
 }

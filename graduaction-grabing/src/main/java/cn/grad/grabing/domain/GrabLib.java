@@ -2,30 +2,46 @@ package cn.grad.grabing.domain;
 
 import java.io.Serializable;
 
-@SuppressWarnings("serial")
-public class GrabLib implements Serializable {
-	private Integer grabId;
+/**
+ * 爬取字典
+ */
+public class GrabLib extends BaseEntity implements Serializable {
+	private static final long serialVersionUID = -4830710894170606522L;
+	/**
+	 * 所属网站
+	 */
 	private String website;
+	/**
+	 * 链接地址
+	 */
 	private String webSiteAddr;
-	private String grabedSign;
-	private String addTime;
+	/**
+	 * 是否已经爬取
+	 */
+	private Boolean isGrabbed=false;
+	/**
+	 * 链接地址名称
+	 */
+	private String name;
 
 	public GrabLib() {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "GrabLib [grabId=" + grabId + ", website=" + website + ", webSiteAddr=" + webSiteAddr + ", grabedSign="
-				+ grabedSign + ", addTime=" + addTime + "]";
+	public Boolean getIsGrabbed() {
+		return isGrabbed;
 	}
 
-	public Integer getGrabId() {
-		return grabId;
+	public void setIsGrabbed(Boolean isGrabbed) {
+		this.isGrabbed = isGrabbed;
 	}
 
-	public void setGrabId(Integer grabId) {
-		this.grabId = grabId;
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getWebSiteAddr() {
@@ -34,22 +50,6 @@ public class GrabLib implements Serializable {
 
 	public void setWebSiteAddr(String webSiteAddr) {
 		this.webSiteAddr = webSiteAddr;
-	}
-
-	public String getGrabedSign() {
-		return grabedSign;
-	}
-
-	public void setGrabedSign(String grabedSign) {
-		this.grabedSign = grabedSign;
-	}
-
-	public String getAddTime() {
-		return addTime;
-	}
-
-	public void setAddTime(String addTime) {
-		this.addTime = addTime;
 	}
 
 	public String getWebsite() {

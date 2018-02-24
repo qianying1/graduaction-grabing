@@ -6,16 +6,10 @@ import java.util.Set;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import cn.grad.grabing.entityutil.acfun.index.Nav;
+public class Validation<T> {
 
-public class Validation {
-
-	public static boolean isNull(Element el) {
-		return el != null ? false : true;
-	}
-
-	public static boolean isEmpty(Elements elements) {
-		return elements.size() <= 0 ? true : false;
+	public static boolean isNull(Object obj) {
+		return obj != null ? false : true;
 	}
 
 	public static boolean isStringEmpty(String str) {
@@ -28,18 +22,6 @@ public class Validation {
 
 	public static boolean isObjNull(Object obj) {
 		return obj == null ? true : false;
-	}
-
-	public static boolean isNotContainsStr(Element el, String str) {
-		if (isNull(el))
-			return true;
-		if (isStringNull(str) || isStringEmpty(str))
-			return true;
-		return !el.attr("abs:href").contains(str);
-	}
-
-	public static boolean isEmpty(Element[] els) {
-		return els.length <= 0 ? true : false;
 	}
 
 	public static <T> boolean isListEmpty(List<T> datas) {
@@ -63,8 +45,12 @@ public class Validation {
 		return str != null && !"".equals(str.trim());
 	}
 
-	public static boolean isObjNotNull(Nav nav) {
-		return null != nav;
+	public static boolean isObjNotNull(Object obj) {
+		return null != obj;
+	}
+
+	public static boolean isListNotEmpty(List list){
+		return list!=null&&list.size()>0;
 	}
 
 }

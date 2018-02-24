@@ -6,8 +6,8 @@ import cn.grad.grabing.domain.VideoAuthor;
 @Repository("videoAuthorMapper")
 public interface VideoAuthorMapper extends CommonMapper<VideoAuthor> {
 
-	int insert(VideoAuthor videoAuthor);
+	Long insert(VideoAuthor videoAuthor);
 
-	int selectVideoAuthors(String authorPageUrl);
+	Long selects(String authorPageUrl);
 
 }

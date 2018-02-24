@@ -1,9 +1,11 @@
 package cn.grad.grabing.service;
 
+import org.jsoup.Connection;
+
 public interface BiliBiliGrabService {
 
-	void beginBilibiliGrabing();
+	void beginGrabing(Connection jsoupConn);
 
-	void initBeforeGrabing(String targetValue);
+	Connection initBeforeGrabing(String targetValue);
 
 }

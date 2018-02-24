@@ -24,5 +24,14 @@
 		<setting name="jdbcTypeForNull" value="OTHER" />
 		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />
 	</settings>
-
+	<typeAliases>
+		<typeAlias alias="AnalizedMessage" type="cn.grad.grabing.domain.AnalizedMessage" />
+		<typeAlias alias="GrabLib" type="cn.grad.grabing.domain.GrabLib" />
+		<typeAlias alias="GrabingWeb" type="cn.grad.grabing.domain.GrabingWeb" />
+		<typeAlias alias="GrabMessage" type="cn.grad.grabing.domain.GrabMessage" />
+		<typeAlias alias="Video" type="cn.grad.grabing.domain.Video" />
+		<typeAlias alias="Style" type="cn.grad.grabing.domain.Style" />
+		<typeAlias alias="VideoAuthor" type="cn.grad.grabing.domain.VideoAuthor" />
+		<typeAlias alias="WebSites" type="cn.grad.grabing.domain.WebSites" />
+	</typeAliases>
 </configuration>

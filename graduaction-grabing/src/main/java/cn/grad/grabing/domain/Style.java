@@ -2,44 +2,33 @@ package cn.grad.grabing.domain;
 
 import java.io.Serializable;
 
-@SuppressWarnings("serial")
-public class Style implements Serializable {
+/**
+ * 视频分类
+ */
+public class Style extends BaseEntity implements Serializable {
+	private static final long serialVersionUID = 6836446947871751901L;
+	/**
+	 * 分类名称
+	 */
+	private String styleName;
+	/**
+	 * 父级分类
+	 */
+	private Style parent;
 
-	private Long styleId;
-	private String name;
-	private String link;
-	private String flag;
-
-	public Long getStyleId() {
-		return styleId;
+	public String getStyleName() {
+		return styleName;
 	}
 
-	public void setStyleId(Long styleId) {
-		this.styleId = styleId;
+	public void setStyleName(String styleName) {
+		this.styleName = styleName;
 	}
 
-	public String getName() {
-		return name;
+	public Style getParent() {
+		return parent;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setParent(Style parent) {
+		this.parent = parent;
 	}
-
-	public String getLink() {
-		return link;
-	}
-
-	public void setLink(String link) {
-		this.link = link;
-	}
-
-	public String getFlag() {
-		return flag;
-	}
-
-	public void setFlag(String flag) {
-		this.flag = flag;
-	}
-
 }
