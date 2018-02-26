@@ -90,7 +90,7 @@ public class GrabingThread extends BaseUtil implements Runnable {
      */
     private void beginBilibiliGrabing() {
         biliBiliGrabServiceImpl = (BilibiliGrabServiceImpl) ApplicationContextUtil.getBean("bilibiliGrabServiceImpl");
-        Connection connection=biliBiliGrabServiceImpl.initBeforeGrabing(targetValue);
+        Connection connection = biliBiliGrabServiceImpl.initBeforeGrabing(targetValue);
         biliBiliGrabServiceImpl.beginGrabing(connection);
     }
 

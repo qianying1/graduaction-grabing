@@ -42,6 +42,12 @@ public class ResourceLoader extends HttpServlet {
 		initGrabingWeaponWebSiteParams(webSitesProperties);
 	}
 
+	/**
+	 * 属性文件配置
+	 *
+	 * @param config
+	 * @return
+	 */
 	protected Properties webSitesPropertiesLoader(ServletConfig config) {
 		String webSitesPath = config.getInitParameter(StrPropertiesMapper.WEBSITESPROPERTIESFILE);
 		if (Validation.isStringNull(webSitesPath) || Validation.isStringEmpty(webSitesPath)) {
@@ -52,6 +58,9 @@ public class ResourceLoader extends HttpServlet {
 		return pIo.initConnector(webSitesPath);
 	}
 
+	/**
+	 * 准备开始进行抓取工作
+	 */
 	protected void prepareGrabings() {
 		for (Object website : webSites.keySet()) {
 			GrabingThread grabingThread = new GrabingThread();

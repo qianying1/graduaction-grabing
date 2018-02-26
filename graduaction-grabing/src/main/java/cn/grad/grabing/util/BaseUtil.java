@@ -1,7 +1,6 @@
 package cn.grad.grabing.util;
 
 import cn.grad.grabing.helper.DocumentInitailizer;
-import com.gargoylesoftware.htmlunit.WebClient;
 import org.dozer.Mapper;
 import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
@@ -26,12 +25,12 @@ public class BaseUtil<T extends Class> extends BaseLogger {
      * @param targetUri
      */
     public Connection initBeforeGrabing(String targetUri) {
+        //jsoup
         if (Validation.isStringNull(targetUri)) {
             log.error("the target url can`t be null!");
             return null;
         }
         this.seedUri = targetUri;
-
         Connection conn = documentInitailizer.initConnectionByUrl(this.seedUri);
         return conn;
     }
